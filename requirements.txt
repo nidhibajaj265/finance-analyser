@@ -18,4 +18,5 @@ langchain-community
 langchain-huggingface
 langchain-openai
 huggingface_hub          # client for the Hugging Face Inference API
-chromadb              
+chromadb  
+requests            
