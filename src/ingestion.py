@@ -1,3 +1,4 @@
+from datasketch import MinHash, MinHashLSH
 import feedparser
 from newspaper import Article
 import asyncio
@@ -35,7 +36,10 @@ async def fetch_articles() -> list[dict]:
     # gathering all the coroutines created for each article to run them concurrently
     coroutines_for_asyncio_gather = [extract_article_content(article) for article in articles_list]
     await asyncio.gather(*coroutines_for_asyncio_gather)
-    print(f"Fetched {len(articles_list)} articles.")
+    print(f"{len(articles_list)} fetched {len(articles_list)} articles.")
+
+    articles_list = remove_duplicates(articles_list)
+    print(f"{len(articles_list)} articles after removing duplicates")
     return articles_list
 
 async def extract_article_content(article: dict) -> None:
@@ -53,8 +57,7 @@ async def extract_article_content(article: dict) -> None:
     except Exception as e:
         print(f"Error fetching article content from {url}: {e}")
         article['text'] = ""
-    
-    
+       
 async def fetch_feed(url: str) -> feedparser.FeedParserDict:
     
     # May need to use to be usable with market watch but 
@@ -67,6 +70,29 @@ async def fetch_feed(url: str) -> feedparser.FeedParserDict:
     # }
     loop = asyncio.get_event_loop()
     return await loop.run_in_executor(None, feedparser.parse, url)
-    
+
+def _minhash(text:str) -> MinHash:
+    m = MinHash(num_perm=128)
+    for token in set(text.lower().split()):
+        m.update(token.encode("utf8"))
+    return m
+
+def remove_duplicates(articles_list: list[dict]) -> list[dict]:
+    minLSH = MinHashLSH(threshold=0.8, num_perm=128)
+    unique_articles_list = []
+    for i, article in enumerate(articles_list):
+        if article.get('text', '') != '':
+            text = article.get('text', '')
+        else:
+            article['text'] = article.get('summary', '') + " " + article.get('title', '')
+            text = article.get('text', '')
+
+        mh = _minhash(text)
+        if not minLSH.query(mh):
+            minLSH.insert(f"m_{i}", mh)
+            unique_articles_list.append(article)
+
+    return unique_articles_list
+
 if __name__ == "__main__":
     asyncio.run(fetch_articles())

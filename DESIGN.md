@@ -746,6 +746,7 @@ Build in this order. Each phase is runnable and testable on its own — **do not
 | **10. Dashboard** | Gradio: heatmap, timeline, cards, download | Clickable demo. |
 | **11. Backtest + report** | yfinance backtest; write technical report | Deliverables complete. |
 | **12. FinBERT fine-tuning** | Fine-tune FinBERT on Financial PhraseBank in Colab/Kaggle; compare before/after accuracy; push weights to HF Hub or report offline results | Before vs. after accuracy numbers + written analysis. |
+| **13. GitHub Actions deployment** | Write `.github/workflows/daily_run.yml` to run the full pipeline on a schedule (once daily); handle secrets (HF_TOKEN, OPENAI_API_KEY), NLTK data download, and artifact storage for outputs | Pipeline runs automatically on a cron schedule with no manual trigger. |
 
 **Golden rule:** get a thin end-to-end slice working by Phase 7 (even if each agent is crude), *then* improve quality. A working ugly pipeline beats a perfect half-pipeline.
 
