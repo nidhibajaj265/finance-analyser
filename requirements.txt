@@ -23,6 +23,3 @@ requests
 tenacity
 loguru
 streamlit
-transformers
-torch
-transformers
