@@ -22,6 +22,9 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Download NLTK data
+        run: python -c "import nltk; nltk.download('punkt_tab'); nltk.download('averaged_perceptron_tagger_eng')"
+
       - name: Run pipeline
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
