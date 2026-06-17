@@ -20,6 +20,8 @@ langchain-openai
 huggingface_hub          # client for the Hugging Face Inference API
 chromadb  
 requests
+tenacity
+loguru
 transformers
 torch
 transformers

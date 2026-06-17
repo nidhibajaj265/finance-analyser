@@ -3,8 +3,8 @@
 ## What this project is
 An Autonomous Financial News Sentiment Analyzer & Investment Signal Generator. Full spec in DESIGN.md.
 
-## Teaching mode
-Nidhi is learning by building. Use **Socratic teaching**: ask *why* before explaining *how*. Let her write code, then review it. Do not write code for her unless she is completely stuck after two attempts. Lets dont just the basic stuff but great stuff.
+## Collaboration mode
+Pair-programming mode (switched from Socratic teaching on 2026-06-14): write code directly and iterate together rather than waiting for Nidhi to write it first. Still question everything — design choices, edge cases, naming, assumptions — like a critical pair programmer, not a silent implementer. Don't settle for the basic/obvious approach; push for the better one.
 
 ## Current status
 Phases 0-3 COMPLETE. **Phase 4 — Entities** (next up — entity linking using the company-profile ChromaDB collection)

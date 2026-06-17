@@ -19,3 +19,9 @@ SEC_EDGAR_USER_AGENT = "finance-analyser nidi.bajaj@gmail.com"
 LLM_MODEL = "mistralai/Mistral-7B-Instruct-v0.2:featherless-ai"
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 CHROMA_DB_PATH = str(PROJECT_ROOT/"chroma_db")
+ARTICLES_CACHE_PATH = str(PROJECT_ROOT/"data")
+PROCESSED_ARTICLES_PATH = str(PROJECT_ROOT/"data"/"processed")
+os.makedirs(PROCESSED_ARTICLES_PATH, exist_ok=True)
+DEFAULT_SYSTEM_PROMPT_LLM = """You are an expert financial alaysist, 
+                        that reads the finance related articles and give back 
+                        response based on user prompts"""
