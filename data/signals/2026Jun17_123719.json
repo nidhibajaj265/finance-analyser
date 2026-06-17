@@ -1,0 +1,58 @@
+{
+    "signals": [
+        {
+            "entity": "Jabil",
+            "ticker": "JBL",
+            "signal": "bullish",
+            "confidence": 0.495,
+            "evidence": [
+                "1 bullish across 1 article(s) \u2014 severity-weighted vote resolved to bullish",
+                "FinBERT language confirmed the bullish signal (alignment score: 0.41)",
+                "direction consensus strength: 1.00 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-17T12:37:19.346068"
+        },
+        {
+            "entity": "Apple",
+            "ticker": "AAPL",
+            "signal": "bearish",
+            "confidence": 0.253,
+            "evidence": [
+                "1 bullish, 2 bearish, 2 neutral across 5 article(s) \u2014 severity-weighted vote resolved to bearish",
+                "FinBERT language conflicted with the bearish signal (alignment score: -0.02)",
+                "direction consensus strength: 0.37 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-17T12:37:19.346112"
+        }
+    ],
+    "articles_by_ticker": {
+        "JBL": [
+            {
+                "title": "Jabil raises annual profit forecast amid strong data center demand",
+                "summary": "Jabil raised its 2026 profit forecast on Wednesday, as the electronic-component maker \u200clooks to capitalize on AI-led demand for \u200cdata centers. A surge in data-center infrastructure spending, driven by strong \u200bdemand for AI computing power, has benefited companies such as Jabil. \"AI infrastructure demand remains extremely strong,\" said CEO Mike Dastoor, adding the company continued to \u200csee better-than-expected performance \u2060particularly in its automotive and connected living segment that had earlier been under \u2060pressure."
+            }
+        ],
+        "AAPL": [
+            {
+                "title": "Apple Investors Are Tired of AI Promises, Want Tangible Progress",
+                "summary": "(Bloomberg) -- Apple Inc. investors are losing patience with the company\u2019s talk about becoming a more formidable presence in artificial intelligence and want to start seeing some results.Most Read from BloombergRead the 14-Point Draft Memorandum Between the US and IranIran\u2019s Deputy Foreign Minister Confirms Deal Reached With USModi Warns of \u2018Shortage of Trust\u2019 Ahead of Trump MeetingNetanyahu Pays a Political Price for Trump\u2019s Iran DealUS Set to Offer Iran Broad Financial Gains in Peace Deal\u201cTher"
+            },
+            {
+                "title": "Italy opens first DMA probe into Apple over iCloud access",
+                "summary": "Italy\u2019s regulator examines whether Apple gives rival cloud providers equal access to iOS and iPadOS system features."
+            },
+            {
+                "title": "Apple (AAPL) Faces Italy DMA Probe Over Cloud Interoperability",
+                "summary": "Italy\u2019s competition authority has opened a Digital Markets Act probe into Apple\u2019s cloud service interoperability on iOS and iPadOS. Regulators are examining whether Apple limits third party consumer cloud providers from using certain system features, potentially favoring iCloud. This is the first investigation launched by a national authority under the EU\u2019s Digital Markets Act and focuses on how Apple\u2019s ecosystem interacts with external services. Apple (NasdaqGS:AAPL) faces this new..."
+            },
+            {
+                "title": "Apple Stock Rises on AI AirPods and Foldable iPhone Report",
+                "summary": "Apple Advances AI Hardware Push as New AirPods Details Emerge"
+            },
+            {
+                "title": "Here\u2019s Why Apple Inc (AAPL) Is Falling Despite AI Advancements at WWDC 2026",
+                "summary": "Apple Inc. (NASDAQ:AAPL) shares have declined following important AI-related announcements at the WWDC 2026 conference. The falling investor sentiment comes as the company was not able to meet AI advancement expectations. However, the Street sees the conference as a meaningful step for Apple. Apple Inc. (NASDAQ:AAPL) is also one of our Top Stocks to Buy [\u2026]"
+            }
+        ]
+    }
+}
