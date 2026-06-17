@@ -1,0 +1,116 @@
+{
+    "signals": [
+        {
+            "entity": "Apple",
+            "ticker": "AAPL",
+            "signal": "neutral",
+            "confidence": 0.18,
+            "evidence": [
+                "2 bullish, 1 bearish, 3 neutral across 6 article(s) \u2014 severity-weighted vote resolved to neutral",
+                "FinBERT language conflicted with the neutral signal (alignment score: 0.00)",
+                "direction consensus strength: 0.00 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-17T11:57:58.915829"
+        },
+        {
+            "entity": "Dow",
+            "ticker": "DOW",
+            "signal": "neutral",
+            "confidence": 0.03,
+            "evidence": [
+                "1 neutral across 1 article(s) \u2014 severity-weighted vote resolved to neutral",
+                "FinBERT language conflicted with the neutral signal (alignment score: 0.00)",
+                "direction consensus strength: 0.00 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-17T11:57:58.915866"
+        },
+        {
+            "entity": "Nasdaq",
+            "ticker": "NDAQ",
+            "signal": "neutral",
+            "confidence": 0.03,
+            "evidence": [
+                "1 neutral across 1 article(s) \u2014 severity-weighted vote resolved to neutral",
+                "FinBERT language conflicted with the neutral signal (alignment score: 0.00)",
+                "direction consensus strength: 0.00 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-17T11:57:58.915888"
+        },
+        {
+            "entity": "Netflix",
+            "ticker": "NFLX",
+            "signal": "bullish",
+            "confidence": 0.368,
+            "evidence": [
+                "1 bullish across 1 article(s) \u2014 severity-weighted vote resolved to bullish",
+                "FinBERT language confirmed the bullish signal (alignment score: 0.10)",
+                "direction consensus strength: 1.00 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-17T11:57:58.915916"
+        },
+        {
+            "entity": "Nvidia",
+            "ticker": "NVDA",
+            "signal": "bullish",
+            "confidence": 0.389,
+            "evidence": [
+                "1 bullish across 1 article(s) \u2014 severity-weighted vote resolved to bullish",
+                "FinBERT language confirmed the bullish signal (alignment score: 0.15)",
+                "direction consensus strength: 1.00 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-17T11:57:58.915934"
+        }
+    ],
+    "articles_by_ticker": {
+        "AAPL": [
+            {
+                "title": "Italy opens first DMA probe into Apple over iCloud access",
+                "summary": "Italy\u2019s regulator examines whether Apple gives rival cloud providers equal access to iOS and iPadOS system features."
+            },
+            {
+                "title": "Apple (AAPL) Faces Italy DMA Probe Over Cloud Interoperability",
+                "summary": "Italy\u2019s competition authority has opened a Digital Markets Act probe into Apple\u2019s cloud service interoperability on iOS and iPadOS. Regulators are examining whether Apple limits third party consumer cloud providers from using certain system features, potentially favoring iCloud. This is the first investigation launched by a national authority under the EU\u2019s Digital Markets Act and focuses on how Apple\u2019s ecosystem interacts with external services. Apple (NasdaqGS:AAPL) faces this new..."
+            },
+            {
+                "title": "Apple Stock Rises on AI AirPods and Foldable iPhone Report",
+                "summary": "Apple Advances AI Hardware Push as New AirPods Details Emerge"
+            },
+            {
+                "title": "Here\u2019s Why Apple Inc (AAPL) Is Falling Despite AI Advancements at WWDC 2026",
+                "summary": "Apple Inc. (NASDAQ:AAPL) shares have declined following important AI-related announcements at the WWDC 2026 conference. The falling investor sentiment comes as the company was not able to meet AI advancement expectations. However, the Street sees the conference as a meaningful step for Apple. Apple Inc. (NASDAQ:AAPL) is also one of our Top Stocks to Buy [\u2026]"
+            },
+            {
+                "title": "AAPL Stock Gains \u2014 Apple Reportedly Eyes Foldable iPhone, Camera-Equipped AirPods Launches In 2027",
+                "summary": "Apple Inc. is reportedly planning a major product refresh in late 2027, including AI-powered AirPods with built-in cameras, a second-generation foldable iPhone and a special 20th anniversary iPhone."
+            },
+            {
+                "title": "Prediction: Apple Stock Will Go On a Bull Run in the Second Half of 2026",
+                "summary": "Apple's entry into the foldable smartphone market could unlock a terrific growth opportunity for the tech giant."
+            }
+        ],
+        "DOW": [
+            {
+                "title": "Dow Hits Record High On Strong Banks And Industrial Stocks, Nasdaq And S&P 500 Slip On Tech Weakness \u2014 SPCX, YUM, HOOD, RIVN, AAPL, SNAP In Focus",
+                "summary": "SPCX stock added 5% on Tuesday, surpassing both Microsoft and Amazon in market cap at one point during the session."
+            }
+        ],
+        "NDAQ": [
+            {
+                "title": "Dow Hits Record High On Strong Banks And Industrial Stocks, Nasdaq And S&P 500 Slip On Tech Weakness \u2014 SPCX, YUM, HOOD, RIVN, AAPL, SNAP In Focus",
+                "summary": "SPCX stock added 5% on Tuesday, surpassing both Microsoft and Amazon in market cap at one point during the session."
+            }
+        ],
+        "NFLX": [
+            {
+                "title": "The Real Engine Behind Netflix Stock Is Not Subscribers",
+                "summary": "With the stock beaten down, the market seems to be missing the quiet, compounding power of the company's steadily climbing profitability."
+            }
+        ],
+        "NVDA": [
+            {
+                "title": "Could SpaceX Overtake Nvidia As The World's Biggest Company In 2026?",
+                "summary": "Space Exploration Technologies Corp. (NASDAQ:SPCX) just became the fifth-most-valuable company on the planet \u2014 and it took three trading sessions to do what Amazon.com Inc. needed nearly three decades to achieve. Elon Musk's rocket and satellite company priced its initial public offering at $135 a share on June 12 in the largest IPO in history. By midday Tuesday, the stock had jumped nearly 60% to around $213, lifting its market value to nearly $2.75 trillion and pushing it past Amazon's roughly"
+            }
+        ]
+    }
+}
