@@ -1,10 +1,12 @@
 import asyncio
-from src.data_handler import fetch_articles
-from src.entities import process_unprocessed_articles
-from src.events import update_article_with_event_info
+import sys
+from loguru import logger
+from src.graph import app
 
-asyncio.run(fetch_articles())
-process_unprocessed_articles()
-update_article_with_event_info()
+logger.remove()
+logger.add(sys.stderr, level="INFO")
 
-
+if __name__ == "__main__":
+    result = asyncio.run(app.ainvoke({}))
+    for signal in result["signals"]:
+        logger.info(signal)

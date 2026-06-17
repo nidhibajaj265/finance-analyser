@@ -101,8 +101,6 @@ def remove_duplicates(articles_list: list[dict]) -> list[dict]:
             minLSH.insert(f"m_{i}", mh)
             unique_articles_list.append(article)
 
-    save_to_json(unique_articles_list)
-
     return unique_articles_list
 
 def save_to_json(articles_list: list[dict], folder_path: str = ARTICLES_CACHE_PATH, file_name: str = None):

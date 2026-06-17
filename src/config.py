@@ -21,7 +21,9 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 CHROMA_DB_PATH = str(PROJECT_ROOT/"chroma_db")
 ARTICLES_CACHE_PATH = str(PROJECT_ROOT/"data")
 PROCESSED_ARTICLES_PATH = str(PROJECT_ROOT/"data"/"processed")
+SIGNALS_PATH = str(PROJECT_ROOT/"data"/"signals")
 os.makedirs(PROCESSED_ARTICLES_PATH, exist_ok=True)
+os.makedirs(SIGNALS_PATH, exist_ok=True)
 DEFAULT_SYSTEM_PROMPT_LLM = """You are an expert financial alaysist, 
                         that reads the finance related articles and give back 
                         response based on user prompts"""

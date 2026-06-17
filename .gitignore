@@ -3,6 +3,5 @@
 __pycache__/
 *.pyc
 data/
-chroma_db/
 CLAUDE.md
 DESIGN.md
