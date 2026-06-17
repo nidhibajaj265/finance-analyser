@@ -41,7 +41,7 @@ def match_entities_to_articles(article_list: list[dict]) -> list[dict]:
                     confidence = 0.5
                 if text_hits:
                     confidence = confidence + min(0.1 * len(text_hits), 0.5)
-                if confidence > 0.5:
+                if confidence > 0.7:
                     matches.append({"ticker": ticker, "name": name, "confidence": confidence})
 
         article['entities'] = matches
