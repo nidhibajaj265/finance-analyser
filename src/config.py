@@ -10,7 +10,7 @@ load_dotenv()
 # This way, we can catch the error early
 # and ensure that the necessary configuration is provided before 
 # running the application.
-HF_TOKEN = os.environ["HF_TOKEN"] 
+HF_TOKEN = os.environ.get("HF_TOKEN")
 
 #Used () here for OPENAI_API_KEY because we dont want it to throw an error 
 # if the environment variable is not set and default to None or an empty string. 
