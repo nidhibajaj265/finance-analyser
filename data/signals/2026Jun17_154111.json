@@ -1,0 +1,66 @@
+{
+    "signals": [
+        {
+            "entity": "Apple",
+            "ticker": "AAPL",
+            "signal": "neutral",
+            "confidence": 0.263,
+            "evidence": [
+                "1 bearish, 6 neutral across 7 article(s) \u2014 severity-weighted vote resolved to neutral",
+                "FinBERT language conflicted with the neutral signal (alignment score: 0.00)",
+                "direction consensus strength: 0.18 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-17T15:41:11.692800"
+        },
+        {
+            "entity": "Nvidia",
+            "ticker": "NVDA",
+            "signal": "neutral",
+            "confidence": 0.03,
+            "evidence": [
+                "1 neutral across 1 article(s) \u2014 severity-weighted vote resolved to neutral",
+                "FinBERT language conflicted with the neutral signal (alignment score: 0.00)",
+                "direction consensus strength: 0.00 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-17T15:41:11.692830"
+        }
+    ],
+    "articles_by_ticker": {
+        "AAPL": [
+            {
+                "title": "Jim Cramer Wonders Whether Nvidia Corp (NVDA)\u2019s Becoming Like Apple",
+                "summary": "We recently published Jim Cramer Called SpaceX A Meme Stock & Discussed These 7 Stocks. Nvidia Corp (NASDAQ:NVDA) is one of the stocks discussed by Jim Cramer. Once Wall Street\u2019s AI darling, Nvidia Corp (NASDAQ:NVDA)\u2019s shares have been muted in 2026. They are up by a modest 12.5% year-to-date. Despite the modest performance, Cramer has [\u2026]"
+            },
+            {
+                "title": "Apple Investors Are Tired of AI Promises, Want Tangible Progress",
+                "summary": "(Bloomberg) -- Apple Inc. investors are losing patience with the company\u2019s talk about becoming a more formidable presence in artificial intelligence and want to start seeing some results.Most Read from BloombergRead the 14-Point Draft Memorandum Between the US and IranModi Warns of \u2018Shortage of Trust\u2019 Ahead of Trump MeetingIran\u2019s Deputy Foreign Minister Confirms Deal Reached With USNetanyahu Pays a Political Price for Trump\u2019s Iran DealUS Set to Offer Iran Broad Financial Gains in Peace Deal\u201cTher"
+            },
+            {
+                "title": "Apple (AAPL) Stock After 129% Five-Year Rally Is There Still Value Here",
+                "summary": "If you are wondering whether Apple stock still offers value after its strong run, the answer depends heavily on how you look at price versus fundamentals. At a last close of US$299.24, Apple has returned 3.0% over the past week, was roughly flat over the past month with a 0.3% decline, and has delivered 10.4% year to date, 53.6% over 1 year, 64.0% over 3 years, and 129.1% over 5 years. Recent coverage around Apple has continued to focus on its role as a large US tech stock and a key holding..."
+            },
+            {
+                "title": "Apple Looks Beyond the iPhone Upgrade Cycle",
+                "summary": "Report says second-generation model is already planned"
+            },
+            {
+                "title": "Apple Eyes AI-Powered AirPods, Foldable iPhone Launches in 2027",
+                "summary": "Apple is reportedly planning AI-enabled AirPods with cameras."
+            },
+            {
+                "title": "Italy opens first DMA probe into Apple over iCloud access",
+                "summary": "Italy\u2019s regulator examines whether Apple gives rival cloud providers equal access to iOS and iPadOS system features."
+            },
+            {
+                "title": "Apple (AAPL) Faces Italy DMA Probe Over Cloud Interoperability",
+                "summary": "Italy\u2019s competition authority has opened a Digital Markets Act probe into Apple\u2019s cloud service interoperability on iOS and iPadOS. Regulators are examining whether Apple limits third party consumer cloud providers from using certain system features, potentially favoring iCloud. This is the first investigation launched by a national authority under the EU\u2019s Digital Markets Act and focuses on how Apple\u2019s ecosystem interacts with external services. Apple (NasdaqGS:AAPL) faces this new..."
+            }
+        ],
+        "NVDA": [
+            {
+                "title": "Jim Cramer Wonders Whether Nvidia Corp (NVDA)\u2019s Becoming Like Apple",
+                "summary": "We recently published Jim Cramer Called SpaceX A Meme Stock & Discussed These 7 Stocks. Nvidia Corp (NASDAQ:NVDA) is one of the stocks discussed by Jim Cramer. Once Wall Street\u2019s AI darling, Nvidia Corp (NASDAQ:NVDA)\u2019s shares have been muted in 2026. They are up by a modest 12.5% year-to-date. Despite the modest performance, Cramer has [\u2026]"
+            }
+        ]
+    }
+}
