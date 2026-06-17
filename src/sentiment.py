@@ -1,3 +1,5 @@
+import nltk
+nltk.download('punkt_tab', quiet=True)
 from nltk import sent_tokenize
 from loguru import logger
 from src.finbert import call_finbert
