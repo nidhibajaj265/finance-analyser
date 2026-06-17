@@ -1,0 +1,120 @@
+{
+    "signals": [
+        {
+            "entity": "Apple",
+            "ticker": "AAPL",
+            "signal": "neutral",
+            "confidence": 0.21,
+            "evidence": [
+                "7 neutral across 7 article(s) \u2014 severity-weighted vote resolved to neutral",
+                "FinBERT language conflicted with the neutral signal (alignment score: 0.00)",
+                "direction consensus strength: 0.00 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-17T18:24:50.097693"
+        },
+        {
+            "entity": "Target",
+            "ticker": "TGT",
+            "signal": "neutral",
+            "confidence": 0.03,
+            "evidence": [
+                "1 neutral across 1 article(s) \u2014 severity-weighted vote resolved to neutral",
+                "FinBERT language conflicted with the neutral signal (alignment score: 0.00)",
+                "direction consensus strength: 0.00 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-17T18:24:50.097722"
+        },
+        {
+            "entity": "Alphabet",
+            "ticker": "GOOG",
+            "signal": "neutral",
+            "confidence": 0.03,
+            "evidence": [
+                "1 neutral across 1 article(s) \u2014 severity-weighted vote resolved to neutral",
+                "FinBERT language conflicted with the neutral signal (alignment score: 0.00)",
+                "direction consensus strength: 0.00 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-17T18:24:50.097739"
+        },
+        {
+            "entity": "Nvidia",
+            "ticker": "NVDA",
+            "signal": "neutral",
+            "confidence": 0.03,
+            "evidence": [
+                "1 neutral across 1 article(s) \u2014 severity-weighted vote resolved to neutral",
+                "FinBERT language conflicted with the neutral signal (alignment score: 0.00)",
+                "direction consensus strength: 0.00 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-17T18:24:50.097754"
+        },
+        {
+            "entity": "Tesla",
+            "ticker": "TSLA",
+            "signal": "bullish",
+            "confidence": 0.344,
+            "evidence": [
+                "1 bullish across 1 article(s) \u2014 severity-weighted vote resolved to bullish",
+                "FinBERT language confirmed the bullish signal (alignment score: 0.04)",
+                "direction consensus strength: 1.00 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-17T18:24:50.097767"
+        }
+    ],
+    "articles_by_ticker": {
+        "AAPL": [
+            {
+                "title": "Dan Ives Has a $400 Price Target on Apple. After WWDC, Here's Whether He's Right.",
+                "summary": "Apple stock has been flat over the last month."
+            },
+            {
+                "title": "Apple may owe you up to $95 from a $250 million settlement over its AI rollout \u2014 here's who qualifies",
+                "summary": "Apple marketed Siri AI features as a selling point for select iPhone 16 and 15 models \u2014 but many weren't available at launch."
+            },
+            {
+                "title": "Jim Cramer Wonders Whether Nvidia Corp (NVDA)\u2019s Becoming Like Apple",
+                "summary": "We recently published Jim Cramer Called SpaceX A Meme Stock & Discussed These 7 Stocks. Nvidia Corp (NASDAQ:NVDA) is one of the stocks discussed by Jim Cramer. Once Wall Street\u2019s AI darling, Nvidia Corp (NASDAQ:NVDA)\u2019s shares have been muted in 2026. They are up by a modest 12.5% year-to-date. Despite the modest performance, Cramer has [\u2026]"
+            },
+            {
+                "title": "Apple Investors Are Tired of AI Promises, Want Tangible Progress",
+                "summary": "(Bloomberg) -- Apple Inc. investors are losing patience with the company\u2019s talk about becoming a more formidable presence in artificial intelligence and want to start seeing some results.Most Read from BloombergRead the 14-Point Draft Memorandum Between the US and IranModi Warns of \u2018Shortage of Trust\u2019 Ahead of Trump MeetingIran\u2019s Deputy Foreign Minister Confirms Deal Reached With USNetanyahu Pays a Political Price for Trump\u2019s Iran DealApple Plans Camera AirPods Alongside Upgraded Foldable iPhone"
+            },
+            {
+                "title": "Apple (AAPL) Stock After 129% Five-Year Rally Is There Still Value Here",
+                "summary": "If you are wondering whether Apple stock still offers value after its strong run, the answer depends heavily on how you look at price versus fundamentals. At a last close of US$299.24, Apple has returned 3.0% over the past week, was roughly flat over the past month with a 0.3% decline, and has delivered 10.4% year to date, 53.6% over 1 year, 64.0% over 3 years, and 129.1% over 5 years. Recent coverage around Apple has continued to focus on its role as a large US tech stock and a key holding..."
+            },
+            {
+                "title": "Apple Looks Beyond the iPhone Upgrade Cycle",
+                "summary": "Report says second-generation model is already planned"
+            },
+            {
+                "title": "Apple Eyes AI-Powered AirPods, Foldable iPhone Launches in 2027",
+                "summary": "Apple is reportedly planning AI-enabled AirPods with cameras."
+            }
+        ],
+        "TGT": [
+            {
+                "title": "Dan Ives Has a $400 Price Target on Apple. After WWDC, Here's Whether He's Right.",
+                "summary": "Apple stock has been flat over the last month."
+            }
+        ],
+        "GOOG": [
+            {
+                "title": "Alphabet Drops 6% in a Month: Buy, Sell, or Hold the GOOGL Stock?",
+                "summary": "GOOGL's AI-powered Search and Cloud growth offer upside, but high capex, competition and stretched valuation keep investor caution high."
+            }
+        ],
+        "NVDA": [
+            {
+                "title": "Jim Cramer Wonders Whether Nvidia Corp (NVDA)\u2019s Becoming Like Apple",
+                "summary": "We recently published Jim Cramer Called SpaceX A Meme Stock & Discussed These 7 Stocks. Nvidia Corp (NASDAQ:NVDA) is one of the stocks discussed by Jim Cramer. Once Wall Street\u2019s AI darling, Nvidia Corp (NASDAQ:NVDA)\u2019s shares have been muted in 2026. They are up by a modest 12.5% year-to-date. Despite the modest performance, Cramer has [\u2026]"
+            }
+        ],
+        "TSLA": [
+            {
+                "title": "Dan Ives Predicts a Tesla-SpaceX Megamerger. Here\u2019s What Investors Need to Know.",
+                "summary": "A merger of Elon Musk's companies would be valued at $3.6 trillion."
+            }
+        ]
+    }
+}
