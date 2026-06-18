@@ -1,0 +1,96 @@
+{
+    "signals": [
+        {
+            "entity": "Apple",
+            "ticker": "AAPL",
+            "signal": "bearish",
+            "confidence": 0.381,
+            "evidence": [
+                "2 bullish, 5 bearish, 2 neutral across 9 article(s) \u2014 severity-weighted vote resolved to bearish",
+                "FinBERT language conflicted with the bearish signal (alignment score: -0.08)",
+                "direction consensus strength: 0.48 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-18T09:28:47.703654"
+        },
+        {
+            "entity": "Intel",
+            "ticker": "INTC",
+            "signal": "bullish",
+            "confidence": 0.557,
+            "evidence": [
+                "2 bullish across 2 article(s) \u2014 severity-weighted vote resolved to bullish",
+                "FinBERT language confirmed the bullish signal (alignment score: 0.49)",
+                "direction consensus strength: 1.00 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-18T09:28:47.703690"
+        },
+        {
+            "entity": "Qualcomm",
+            "ticker": "QCOM",
+            "signal": "bullish",
+            "confidence": 0.242,
+            "evidence": [
+                "1 bullish across 1 article(s) \u2014 severity-weighted vote resolved to bullish",
+                "FinBERT language conflicted with the bullish signal (alignment score: -0.22)",
+                "direction consensus strength: 1.00 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-18T09:28:47.703707"
+        }
+    ],
+    "articles_by_ticker": {
+        "AAPL": [
+            {
+                "title": "Apple price rises are \u2018unavoidable\u2019, CEO warns, as AI chip costs surge",
+                "summary": "Tim Cook says Apple can no longer absorb soaring memory-chip costs driven by the artificial intelligence boom, signalling higher prices for consumers and raising concerns about broader inflation across the technology sector.View on euronews"
+            },
+            {
+                "title": "Trump says Apple to partner with Intel on US chip design, production",
+                "summary": "U.S. President Donald Trump said in a Truth Social post on Thursday that Apple has agreed to \u200cwork with Intel to design and manufacture its chips in \u200cthe United States.  A partnership with Intel helps Apple diversify its manufacturing base as it seeks \u200badditional chip capacity.  The iPhone maker relies heavily on TSMC, whose advanced production lines are in high demand from AI chipmakers such as Nvidia and AMD."
+            },
+            {
+                "title": "AI is hurting Apple in more ways than one: it may force iPhone price increases",
+                "summary": "CEO Tim Cook said in a recent interview that the situation is \"unsustainable.\""
+            },
+            {
+                "title": "Apple (AAPL) Is Reportedly Building AI AirPods And A Foldable iPhone For 2027",
+                "summary": "Apple is reportedly working on AI-enabled AirPods with integrated cameras aimed for a 2027 release. The company is also said to be developing a second-generation foldable iPhone on a similar timeline. These products would mark a shift toward AI wearables and foldable devices beyond regular hardware refresh cycles. For investors tracking Apple, NasdaqGS:AAPL, the focus is often on how new product categories can complement existing revenue drivers. The stock is currently trading at $295.95,..."
+            },
+            {
+                "title": "Apple CEO warns price hikes \u2019unavoidable\u2019 as chip costs bite - WSJ",
+                "summary": "Apple is hardly alone in confronting this pressure. Microsoft\u2019s newly launched Surface Pro 13-inch starts at $1,499 and its Surface Laptop at $1,599, roughly 50% above the prior-generation models that launched in 2024 at $999, with the AI-driven memory shortage cited as a central reason for the jump, according to reporting by Yahoo Finance. The repricing across the PC industry reflects a structural shift in the memory market that shows little sign of easing soon."
+            },
+            {
+                "title": "Apple (AAPL) Stock Moves -1.10%: What You Should Know",
+                "summary": "Apple (AAPL) closed the most recent trading day at $295.95, moving 1.1% from the previous trading session."
+            },
+            {
+                "title": "Apple to raise prices due to memory chip shortage, CEO tells WSJ",
+                "summary": "Apple plans to raise prices on its products to offset increasing memory and storage chip costs, CEO Tim Cook told \u200cthe Wall Street Journal in an interview.  A surge in AI-driven demand for \u200cdata centers has forced consumer electronics companies into a fierce competition for dwindling supplies of the key \u200bcomponents, driving prices sharply higher.  Groups representing automakers, retailers, electronic firms and others had warned earlier this month that the increasing demand for memory chips could lead to dramatic price hikes in U.S. consumer goods and disrupt supply chains."
+            },
+            {
+                "title": "Apple Prepares Second-Generation iPhone Air for Spring 2027",
+                "summary": "(Bloomberg) -- Apple Inc. is preparing a second-generation iPhone Air for spring 2027, aiming to boost the appeal of the slimmed-down device, according to people with knowledge of the matter.Most Read from BloombergRead the 14-Point Draft Memorandum Between the US and IranModi Warns of \u2018Shortage of Trust\u2019 Ahead of Trump MeetingIran\u2019s Deputy Foreign Minister Confirms Deal Reached With USNetanyahu Pays a Political Price for Trump\u2019s Iran DealApple Plans Camera AirPods Alongside Upgraded Foldable iP"
+            },
+            {
+                "title": "Apple Faces AI Fatigue as Stock's 10% Gain Trails Nasdaq's 19%",
+                "summary": "Investors questioned Apple's AI progress after WWDC, with delayed features and limited initial availability."
+            }
+        ],
+        "INTC": [
+            {
+                "title": "Trump says Apple to partner with Intel on US chip design, production",
+                "summary": "U.S. President Donald Trump said in a Truth Social post on Thursday that Apple has agreed to \u200cwork with Intel to design and manufacture its chips in \u200cthe United States.  A partnership with Intel helps Apple diversify its manufacturing base as it seeks \u200badditional chip capacity.  The iPhone maker relies heavily on TSMC, whose advanced production lines are in high demand from AI chipmakers such as Nvidia and AMD."
+            },
+            {
+                "title": "INTC Stock Alert: Intel to Begin Production of Its Most Advanced Chip",
+                "summary": "Intel stock rallies as 18A-P manufacturing node enters risk production. Here\u2019s why the announcement is bullish for INTC shares."
+            }
+        ],
+        "QCOM": [
+            {
+                "title": "Qualcomm eyes $10 billion AI shortcut as smartphone growth slows",
+                "summary": "Qualcomm (QCOM) helped define the smartphone era. Now the chip giant is striving to prove it can play a far bigger role in the artificial intelligence boom. That may take a lot. Qualcomm is in talks to buy AI chip firm Tenstorrent in a transaction valued at $8 billion to $10 billion, according to ..."
+            }
+        ]
+    }
+}
