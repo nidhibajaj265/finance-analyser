@@ -1,0 +1,64 @@
+{
+    "signals": [
+        {
+            "entity": "Qualcomm",
+            "ticker": "QCOM",
+            "signal": "bullish",
+            "confidence": 0.444,
+            "evidence": [
+                "1 bullish across 1 article(s) \u2014 severity-weighted vote resolved to bullish",
+                "FinBERT language confirmed the bullish signal (alignment score: 0.28)",
+                "direction consensus strength: 1.00 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-18T19:52:42.891779"
+        },
+        {
+            "entity": "Apple",
+            "ticker": "AAPL",
+            "signal": "bullish",
+            "confidence": 0.542,
+            "evidence": [
+                "1 bullish, 1 neutral across 2 article(s) \u2014 severity-weighted vote resolved to bullish",
+                "FinBERT language confirmed the bullish signal (alignment score: 0.63)",
+                "direction consensus strength: 0.77 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-18T19:52:42.891818"
+        },
+        {
+            "entity": "Intel",
+            "ticker": "INTC",
+            "signal": "bullish",
+            "confidence": 0.566,
+            "evidence": [
+                "1 bullish across 1 article(s) \u2014 severity-weighted vote resolved to bullish",
+                "FinBERT language confirmed the bullish signal (alignment score: 0.59)",
+                "direction consensus strength: 1.00 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-18T19:52:42.891835"
+        }
+    ],
+    "articles_by_ticker": {
+        "QCOM": [
+            {
+                "title": "Qualcomm (QCOM) Stock Is Up, What You Need To Know",
+                "summary": "Shares of wireless chipmaker Qualcomm (NASDAQ:QCOM) jumped 3.4% in the afternoon session after President Trump announced Apple had agreed to design and manufacture chips with Intel in the United States, a foundry validation the market had been waiting on for over a year."
+            }
+        ],
+        "AAPL": [
+            {
+                "title": "Wedbush: Apple's Intel Deal Could Change Everything",
+                "summary": "Wedbush Sees Major Intel Opportunity as Apple Reshapes Its Chip Strategy"
+            },
+            {
+                "title": "Intel Jumps 9% After Trump Signals Apple Chip Tie-Up",
+                "summary": "Intel shares rose after Trump said Apple agreed to work with the chipmaker on US-designed and built chips."
+            }
+        ],
+        "INTC": [
+            {
+                "title": "Intel Jumps 9% After Trump Signals Apple Chip Tie-Up",
+                "summary": "Intel shares rose after Trump said Apple agreed to work with the chipmaker on US-designed and built chips."
+            }
+        ]
+    }
+}
