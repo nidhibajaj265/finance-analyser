@@ -1,0 +1,94 @@
+{
+    "signals": [
+        {
+            "entity": "Intel",
+            "ticker": "INTC",
+            "signal": "bullish",
+            "confidence": 0.36,
+            "evidence": [
+                "1 bullish, 2 neutral across 3 article(s) \u2014 severity-weighted vote resolved to bullish",
+                "FinBERT language confirmed the bullish signal (alignment score: 0.33)",
+                "direction consensus strength: 0.45 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-18T22:14:55.350565"
+        },
+        {
+            "entity": "Apple",
+            "ticker": "AAPL",
+            "signal": "bearish",
+            "confidence": 0.153,
+            "evidence": [
+                "1 bearish, 2 neutral across 3 article(s) \u2014 severity-weighted vote resolved to bearish",
+                "FinBERT language conflicted with the bearish signal (alignment score: -0.24)",
+                "direction consensus strength: 0.53 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-18T22:14:55.350595"
+        },
+        {
+            "entity": "Western Digital",
+            "ticker": "WDC",
+            "signal": "bullish",
+            "confidence": 0.448,
+            "evidence": [
+                "1 bullish across 1 article(s) \u2014 severity-weighted vote resolved to bullish",
+                "FinBERT language confirmed the bullish signal (alignment score: 0.29)",
+                "direction consensus strength: 1.00 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-18T22:14:55.350612"
+        },
+        {
+            "entity": "Qualcomm",
+            "ticker": "QCOM",
+            "signal": "bullish",
+            "confidence": 0.444,
+            "evidence": [
+                "1 bullish across 1 article(s) \u2014 severity-weighted vote resolved to bullish",
+                "FinBERT language confirmed the bullish signal (alignment score: 0.28)",
+                "direction consensus strength: 1.00 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-18T22:14:55.350625"
+        }
+    ],
+    "articles_by_ticker": {
+        "INTC": [
+            {
+                "title": "Intel taps industry veteran Seok-Hee Lee to lead foundry packaging push",
+                "summary": "Intel on Thursday named Seok-Hee Lee executive vice president of its contract chip-manufacturing division \u200cas it sharpens focus on its advanced packaging business.  The \u200cAmerican chipmaker has been trying to reinvigorate its manufacturing business under CEO \u200bLip-Bu Tan, after missing out on the AI boom.  The appointment follows President Donald Trump's announcement earlier in the day that Apple had agreed to work with Intel to design and manufacture \u200cits chips in the \u2060U.S. in a boost to the chipmaker's contract manufacturing business."
+            },
+            {
+                "title": "Intel Rallies to Record After Trump Touts Apple Chip Deal",
+                "summary": "(Bloomberg) -- Intel Corp.\u2019s stock surged Thursday after US President Donald Trump said the chipmaker will work with Apple Inc. to design and produce semiconductors domestically.Most Read from BloombergRead the 14-Point Draft Memorandum Between the US and IranModi Warns of \u2018Shortage of Trust\u2019 Ahead of Trump MeetingTrump Blows Through His Iran Red Lines in Justifying Peace DealIran\u2019s Deputy Foreign Minister Confirms Deal Reached With USNYC Greek Eatery Kiki\u2019s Seized for Failure to Pay $1 Million"
+            },
+            {
+                "title": "Why Is Intel (INTC) Stock Rocketing Higher Today",
+                "summary": "Shares of computer processor maker Intel (NASDAQ:INTC) jumped 10.4% in the afternoon session after President Trump posted on Truth Social that \"Apple agreed to work with Intel to design and build its Chips in America.\""
+            }
+        ],
+        "AAPL": [
+            {
+                "title": "Apple\u2019s Latest Reveal Proves That Micron Has \u201cMore Room To Run\u201d",
+                "summary": "Gene Munster, Managing Partner of Deepwater Asset Management, used a CNBC segment on June 18, 2026 to tie together two critical semiconductor stories: Apple\u2018s willingness to raise iPhone prices and the parabolic move in memory chip stocks. His thesis: when the most operationally disciplined hardware company in the world signals it cannot absorb the full ... Apple\u2019s Latest Reveal Proves That Micron Has \u201cMore Room To Run\u201d"
+            },
+            {
+                "title": "Intel Rallies to Record After Trump Touts Apple Chip Deal",
+                "summary": "(Bloomberg) -- Intel Corp.\u2019s stock surged Thursday after US President Donald Trump said the chipmaker will work with Apple Inc. to design and produce semiconductors domestically.Most Read from BloombergRead the 14-Point Draft Memorandum Between the US and IranModi Warns of \u2018Shortage of Trust\u2019 Ahead of Trump MeetingTrump Blows Through His Iran Red Lines in Justifying Peace DealIran\u2019s Deputy Foreign Minister Confirms Deal Reached With USNYC Greek Eatery Kiki\u2019s Seized for Failure to Pay $1 Million"
+            },
+            {
+                "title": "Apple CEO confirms price hikes, Take Two announces GTA 6 preorder date",
+                "summary": "Yahoo Finance Senior Reporter Brooke DiPalma and Market Domination host Josh Lipton take a closer look at some of Thursday's trending tickers and stories, including Apple (AAPL), travel stocks, and Take Two (TTWO)."
+            }
+        ],
+        "WDC": [
+            {
+                "title": "Western Digital (WDC) Is Up 45.3% After AI Storage Momentum and Rising Memory Prices - Has The Bull Case Changed?",
+                "summary": "In recent days, Western Digital has been at the center of a wave of positive research updates, product showcases for AI data centers, and stronger earnings, all tied to surging demand for high-capacity storage and memory. This momentum has been reinforced by easing geopolitical risks, industry-wide optimism on AI infrastructure, and confirmation from major customers like Apple that memory price increases are becoming unavoidable. Together, these developments highlight how Western Digital has..."
+            }
+        ],
+        "QCOM": [
+            {
+                "title": "Qualcomm (QCOM) Stock Is Up, What You Need To Know",
+                "summary": "Shares of wireless chipmaker Qualcomm (NASDAQ:QCOM) jumped 3.4% in the afternoon session after President Trump announced Apple had agreed to design and manufacture chips with Intel in the United States, a foundry validation the market had been waiting on for over a year."
+            }
+        ]
+    }
+}
