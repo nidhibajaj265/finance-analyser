@@ -1,0 +1,122 @@
+{
+    "signals": [
+        {
+            "entity": "Apple",
+            "ticker": "AAPL",
+            "signal": "bullish",
+            "confidence": 0.431,
+            "evidence": [
+                "4 bullish, 1 bearish, 3 neutral across 8 article(s) \u2014 severity-weighted vote resolved to bullish",
+                "FinBERT language confirmed the bullish signal (alignment score: 0.16)",
+                "direction consensus strength: 0.43 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-18T16:40:08.953923"
+        },
+        {
+            "entity": "Intel",
+            "ticker": "INTC",
+            "signal": "bullish",
+            "confidence": 0.475,
+            "evidence": [
+                "3 bullish, 1 neutral across 4 article(s) \u2014 severity-weighted vote resolved to bullish",
+                "FinBERT language confirmed the bullish signal (alignment score: 0.28)",
+                "direction consensus strength: 0.81 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-18T16:40:08.953963"
+        },
+        {
+            "entity": "Sandisk",
+            "ticker": "SNDK",
+            "signal": "bullish",
+            "confidence": 0.43,
+            "evidence": [
+                "1 bullish, 1 neutral across 2 article(s) \u2014 severity-weighted vote resolved to bullish",
+                "FinBERT language confirmed the bullish signal (alignment score: 0.35)",
+                "direction consensus strength: 0.77 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-18T16:40:08.953984"
+        },
+        {
+            "entity": "Western Digital",
+            "ticker": "WDC",
+            "signal": "bullish",
+            "confidence": 0.432,
+            "evidence": [
+                "1 bullish across 1 article(s) \u2014 severity-weighted vote resolved to bullish",
+                "FinBERT language confirmed the bullish signal (alignment score: 0.26)",
+                "direction consensus strength: 1.00 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-18T16:40:08.954002"
+        }
+    ],
+    "articles_by_ticker": {
+        "AAPL": [
+            {
+                "title": "Intel Rallies After Trump Says It Struck Apple Chip Deal",
+                "summary": "(Bloomberg) -- Intel Corp.\u2019s stock surged Thursday after US President Donald Trump said the chipmaker will work with Apple Inc. to design and produce semiconductors domestically.Most Read from BloombergRead the 14-Point Draft Memorandum Between the US and IranModi Warns of \u2018Shortage of Trust\u2019 Ahead of Trump MeetingTrump Blows Through His Iran Red Lines in Justifying Peace DealIran\u2019s Deputy Foreign Minister Confirms Deal Reached With USApple Plans Camera AirPods Alongside Upgraded Foldable iPhone"
+            },
+            {
+                "title": "SanDisk Jumps 11%, Western Digital Rises 7% After Apple Flags \u201cUnavoidable\u201d Memory Price Hikes",
+                "summary": "SanDisk (NASDAQ:SNDK) stock is surging in Thursday trading, up 11% to $2,170. Western Digital (NASDAQ:WDC) stock is also flying, up 7% to roughly $764. The catalyst landed before the open and hit memory and storage names broadly. The trigger came from Apple (NASDAQ:AAPL) CEO Tim Cook, who told the Wall Street Journal that surging memory ... SanDisk Jumps 11%, Western Digital Rises 7% After Apple Flags \u201cUnavoidable\u201d Memory Price Hikes"
+            },
+            {
+                "title": "Apple opens up App Store to new competition in Brazil",
+                "summary": "Apple\u2019s grip on iPhone app distribution is loosening in another major market: Brazil."
+            },
+            {
+                "title": "Tim Cook Says Apple Is About to Get Swamped By a \u201c100-Year Flood\u201d",
+                "summary": "The artificial intelligence boom is reshaping more than just software. It is rewriting the economics of the entire technology industry. The four largest hyperscalers \u2014 Amazon (NASDAQ:AMZN), Microsoft (NASDAQ:MSFT), Alphabet (NASDAQ:GOOG), and Meta Platforms (NASDAQ:META) \u2014 are expected to spend roughly $750 billion on AI infrastructure in 2026. That spending spree is consuming enormous amounts ... Tim Cook Says Apple Is About to Get Swamped By a \u201c100-Year Flood\u201d"
+            },
+            {
+                "title": "Apple allows alternative app stores, payments in Brazil after deal with regulator",
+                "summary": "Apple\u00a0said on Thursday it will allow developers in Brazil \u200cto distribute iOS apps through alternative marketplaces \u200cand process payments outside its system, following an agreement with \u200bthe country's antitrust watchdog CADE.  \u2022 Apple agreed to make the changes to its services in December when it settled a dispute that had been opened \u200cin 2022.  \u2022 For \u2060apps distributed via the App Store in Brazil, developers will be able to \u2060offer alternative payment methods within their apps and direct users to external websites to complete transactions, \u200bthe company \u200bsaid."
+            },
+            {
+                "title": "Intel jumps after Trump says Apple, Intel reached US chip deal",
+                "summary": "Intel (INTC) surged 9% in premarket trading after President Trump said in a Truth Social post that Intel and Apple (AAPL) have agreed on a deal to design and build semiconductors in the US."
+            },
+            {
+                "title": "SanDisk and Micron surge as Apple confirms memory price pass-through",
+                "summary": "SanDisk is trading at $2,144.40, up +9.48% intraday and within reach of its 52-week high of $2,167.33, while Micron Technology is at $1,111.91, up +6.59% and just below its own 52-week peak of $1,116.25. Both stocks have been on extraordinary runs over the past year \u2014 SanDisk has gained more than 4,400% in the past 52 weeks as NAND pricing entered a structural shortage cycle, and Micron has added roughly 810% \u2014 but Thursday's session marks a fresh catalyst: explicit confirmation from Apple that"
+            },
+            {
+                "title": "Intel stock soars on reported Apple deal as turnaround continues to pay off",
+                "summary": "Intel will build chips for Apple, President Trump wrote in a Truth Social post."
+            }
+        ],
+        "INTC": [
+            {
+                "title": "Intel Rallies After Trump Says It Struck Apple Chip Deal",
+                "summary": "(Bloomberg) -- Intel Corp.\u2019s stock surged Thursday after US President Donald Trump said the chipmaker will work with Apple Inc. to design and produce semiconductors domestically.Most Read from BloombergRead the 14-Point Draft Memorandum Between the US and IranModi Warns of \u2018Shortage of Trust\u2019 Ahead of Trump MeetingTrump Blows Through His Iran Red Lines in Justifying Peace DealIran\u2019s Deputy Foreign Minister Confirms Deal Reached With USApple Plans Camera AirPods Alongside Upgraded Foldable iPhone"
+            },
+            {
+                "title": "Why Intel Stock Rocketed Higher on Thursday",
+                "summary": "A report suggests the semiconductor specialist has inked an important deal."
+            },
+            {
+                "title": "Intel jumps after Trump says Apple, Intel reached US chip deal",
+                "summary": "Intel (INTC) surged 9% in premarket trading after President Trump said in a Truth Social post that Intel and Apple (AAPL) have agreed on a deal to design and build semiconductors in the US."
+            },
+            {
+                "title": "Intel stock soars on reported Apple deal as turnaround continues to pay off",
+                "summary": "Intel will build chips for Apple, President Trump wrote in a Truth Social post."
+            }
+        ],
+        "SNDK": [
+            {
+                "title": "SanDisk Jumps 11%, Western Digital Rises 7% After Apple Flags \u201cUnavoidable\u201d Memory Price Hikes",
+                "summary": "SanDisk (NASDAQ:SNDK) stock is surging in Thursday trading, up 11% to $2,170. Western Digital (NASDAQ:WDC) stock is also flying, up 7% to roughly $764. The catalyst landed before the open and hit memory and storage names broadly. The trigger came from Apple (NASDAQ:AAPL) CEO Tim Cook, who told the Wall Street Journal that surging memory ... SanDisk Jumps 11%, Western Digital Rises 7% After Apple Flags \u201cUnavoidable\u201d Memory Price Hikes"
+            },
+            {
+                "title": "Why Sandisk Stock Just Jumped",
+                "summary": "President Trump just gave Intel, Apple, and Sandisk investors some very good news."
+            }
+        ],
+        "WDC": [
+            {
+                "title": "SanDisk Jumps 11%, Western Digital Rises 7% After Apple Flags \u201cUnavoidable\u201d Memory Price Hikes",
+                "summary": "SanDisk (NASDAQ:SNDK) stock is surging in Thursday trading, up 11% to $2,170. Western Digital (NASDAQ:WDC) stock is also flying, up 7% to roughly $764. The catalyst landed before the open and hit memory and storage names broadly. The trigger came from Apple (NASDAQ:AAPL) CEO Tim Cook, who told the Wall Street Journal that surging memory ... SanDisk Jumps 11%, Western Digital Rises 7% After Apple Flags \u201cUnavoidable\u201d Memory Price Hikes"
+            }
+        ]
+    }
+}
