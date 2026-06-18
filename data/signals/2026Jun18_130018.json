@@ -1,0 +1,78 @@
+{
+    "signals": [
+        {
+            "entity": "Apple",
+            "ticker": "AAPL",
+            "signal": "neutral",
+            "confidence": 0.219,
+            "evidence": [
+                "1 bullish, 1 bearish, 4 neutral across 6 article(s) \u2014 severity-weighted vote resolved to neutral",
+                "FinBERT language conflicted with the neutral signal (alignment score: 0.00)",
+                "direction consensus strength: 0.13 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-18T13:00:18.719469"
+        },
+        {
+            "entity": "Intel",
+            "ticker": "INTC",
+            "signal": "bullish",
+            "confidence": 0.563,
+            "evidence": [
+                "2 bullish, 3 neutral across 5 article(s) \u2014 severity-weighted vote resolved to bullish",
+                "FinBERT language confirmed the bullish signal (alignment score: 0.55)",
+                "direction consensus strength: 0.64 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-18T13:00:18.719509"
+        }
+    ],
+    "articles_by_ticker": {
+        "AAPL": [
+            {
+                "title": "Apple's AI Cost Problem Hits Hardware",
+                "summary": "Memory costs could pressure upcoming device launches"
+            },
+            {
+                "title": "Apple CEO Tim Cook Warns Price Hikes Are 'Unavoidable'",
+                "summary": "Apple Faces Growing Cost Pressure, Tim Cook Warns of Higher Prices Ahead"
+            },
+            {
+                "title": "Apple, Intel Chip Partnership Gains Momentum",
+                "summary": "Trump said Apple has agreed to work with Intel on chip design and manufacturing in the United States."
+            },
+            {
+                "title": "Intel Stock Jumps 10% on Apple Partnership",
+                "summary": "Apple-Intel Chip Alliance Revealed as Trump Pushes U.S. Semiconductor Revival"
+            },
+            {
+                "title": "Intel Jumps After Trump Says Apple Will Partner on U.S. Chip Production (INTC)",
+                "summary": "Intel Corporation (NASDAQ:INTC) shares surged in premarket trading on Thursday after U. S."
+            },
+            {
+                "title": "US chip stocks gain after Apple-Intel partnership",
+                "summary": "Investing.com -- Shares of U.S. semiconductor companies climbed in premarket trading Thursday after President Trump said Apple has agreed to work with Intel to design and manufacture its chips domestically."
+            }
+        ],
+        "INTC": [
+            {
+                "title": "Apple, Intel Chip Partnership Gains Momentum",
+                "summary": "Trump said Apple has agreed to work with Intel on chip design and manufacturing in the United States."
+            },
+            {
+                "title": "Intel Stock Jumps 10% on Apple Partnership",
+                "summary": "Apple-Intel Chip Alliance Revealed as Trump Pushes U.S. Semiconductor Revival"
+            },
+            {
+                "title": "Intel stock surges on Trump Apple chip manufacturing announcement",
+                "summary": "Trump said Apple agreed to work with Intel on chip design and production, extending Intel's string of high-profile foundry wins"
+            },
+            {
+                "title": "Intel Jumps After Trump Says Apple Will Partner on U.S. Chip Production (INTC)",
+                "summary": "Intel Corporation (NASDAQ:INTC) shares surged in premarket trading on Thursday after U. S."
+            },
+            {
+                "title": "US chip stocks gain after Apple-Intel partnership",
+                "summary": "Investing.com -- Shares of U.S. semiconductor companies climbed in premarket trading Thursday after President Trump said Apple has agreed to work with Intel to design and manufacture its chips domestically."
+            }
+        ]
+    }
+}
