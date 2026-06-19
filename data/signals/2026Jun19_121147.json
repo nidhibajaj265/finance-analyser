@@ -1,0 +1,74 @@
+{
+    "signals": [
+        {
+            "entity": "Apple",
+            "ticker": "AAPL",
+            "signal": "neutral",
+            "confidence": 0.186,
+            "evidence": [
+                "1 bullish, 4 neutral across 5 article(s) \u2014 severity-weighted vote resolved to neutral",
+                "FinBERT language conflicted with the neutral signal (alignment score: 0.00)",
+                "direction consensus strength: 0.12 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-19T12:11:47.906630"
+        },
+        {
+            "entity": "Intel",
+            "ticker": "INTC",
+            "signal": "bullish",
+            "confidence": 0.361,
+            "evidence": [
+                "1 bullish, 4 neutral across 5 article(s) \u2014 severity-weighted vote resolved to bullish",
+                "FinBERT language confirmed the bullish signal (alignment score: 0.31)",
+                "direction consensus strength: 0.29 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-19T12:11:47.906663"
+        }
+    ],
+    "articles_by_ticker": {
+        "AAPL": [
+            {
+                "title": "3 Reasons to Buy Apple Stock",
+                "summary": "Those who bet against the tech giant tend to lose."
+            },
+            {
+                "title": "Apple to work with Intel on US chip design and production, Trump says",
+                "summary": "President Donald Trump announced an Apple-Intel chip partnership as his administration pushes to bring semiconductor manufacturing back to the U.S. and reduce China reliance."
+            },
+            {
+                "title": "Intel Stock Soared After Trump Said Apple Will Build Chips With It. Is It a Buy?",
+                "summary": "A single presidential social-media post sent the chipmaker's shares higher. But neither company has confirmed it."
+            },
+            {
+                "title": "Apple\u2019s Latest Reveal Proves That Micron Has \u201cMore Room To Run\u201d",
+                "summary": "Gene Munster, Managing Partner of Deepwater Asset Management, used a CNBC segment on June 18, 2026 to tie together two critical semiconductor stories: Apple\u2018s willingness to raise iPhone prices and the parabolic move in memory chip stocks. His thesis: when the most operationally disciplined hardware company in the world signals it cannot absorb the full ... Apple\u2019s Latest Reveal Proves That Micron Has \u201cMore Room To Run\u201d"
+            },
+            {
+                "title": "Intel Rallies to Record After Trump Touts Apple Chip Deal",
+                "summary": "(Bloomberg) -- Intel Corp.\u2019s stock surged Thursday after US President Donald Trump said the chipmaker will work with Apple Inc. to design and produce semiconductors domestically.Most Read from BloombergRead the 14-Point Draft Memorandum Between the US and IranModi Warns of \u2018Shortage of Trust\u2019 Ahead of Trump MeetingTrump Blows Through His Iran Red Lines in Justifying Peace DealMukesh Ambani\u2019s Promise to Investors on Jio IPO Will Be Tested This WeekUS Ends Hormuz Blockade, Downplays Tolls as Negot"
+            }
+        ],
+        "INTC": [
+            {
+                "title": "Apple to work with Intel on US chip design and production, Trump says",
+                "summary": "President Donald Trump announced an Apple-Intel chip partnership as his administration pushes to bring semiconductor manufacturing back to the U.S. and reduce China reliance."
+            },
+            {
+                "title": "Intel Stock Soared After Trump Said Apple Will Build Chips With It. Is It a Buy?",
+                "summary": "A single presidential social-media post sent the chipmaker's shares higher. But neither company has confirmed it."
+            },
+            {
+                "title": "Intel taps industry veteran Seok-Hee Lee to lead foundry packaging push",
+                "summary": "Intel on Thursday named Seok-Hee Lee executive vice president of its contract chip-manufacturing division \u200cas it sharpens focus on its advanced packaging business.  The \u200cAmerican chipmaker has been trying to reinvigorate its manufacturing business under CEO \u200bLip-Bu Tan, after missing out on the AI boom.  The appointment follows President Donald Trump's announcement earlier in the day that Apple had agreed to work with Intel to design and manufacture \u200cits chips in the \u2060U.S. in a boost to the chipmaker's contract manufacturing business."
+            },
+            {
+                "title": "Intel Rallies to Record After Trump Touts Apple Chip Deal",
+                "summary": "(Bloomberg) -- Intel Corp.\u2019s stock surged Thursday after US President Donald Trump said the chipmaker will work with Apple Inc. to design and produce semiconductors domestically.Most Read from BloombergRead the 14-Point Draft Memorandum Between the US and IranModi Warns of \u2018Shortage of Trust\u2019 Ahead of Trump MeetingTrump Blows Through His Iran Red Lines in Justifying Peace DealMukesh Ambani\u2019s Promise to Investors on Jio IPO Will Be Tested This WeekUS Ends Hormuz Blockade, Downplays Tolls as Negot"
+            },
+            {
+                "title": "Why Is Intel (INTC) Stock Rocketing Higher Today",
+                "summary": "Shares of computer processor maker Intel (NASDAQ:INTC) jumped 10.4% in the afternoon session after President Trump posted on Truth Social that \"Apple agreed to work with Intel to design and build its Chips in America.\""
+            }
+        ]
+    }
+}
