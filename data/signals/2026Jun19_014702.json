@@ -1,0 +1,102 @@
+{
+    "signals": [
+        {
+            "entity": "Apple",
+            "ticker": "AAPL",
+            "signal": "bullish",
+            "confidence": 0.331,
+            "evidence": [
+                "1 bullish, 3 neutral across 4 article(s) \u2014 severity-weighted vote resolved to bullish",
+                "FinBERT language confirmed the bullish signal (alignment score: 0.27)",
+                "direction consensus strength: 0.34 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-19T01:47:02.640338"
+        },
+        {
+            "entity": "Sandisk",
+            "ticker": "SNDK",
+            "signal": "bullish",
+            "confidence": 0.473,
+            "evidence": [
+                "1 bullish across 1 article(s) \u2014 severity-weighted vote resolved to bullish",
+                "FinBERT language confirmed the bullish signal (alignment score: 0.36)",
+                "direction consensus strength: 1.00 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-19T01:47:02.640400"
+        },
+        {
+            "entity": "Intel",
+            "ticker": "INTC",
+            "signal": "bullish",
+            "confidence": 0.41,
+            "evidence": [
+                "1 bullish, 3 neutral across 4 article(s) \u2014 severity-weighted vote resolved to bullish",
+                "FinBERT language confirmed the bullish signal (alignment score: 0.39)",
+                "direction consensus strength: 0.45 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-19T01:47:02.640444"
+        },
+        {
+            "entity": "Western Digital",
+            "ticker": "WDC",
+            "signal": "bullish",
+            "confidence": 0.448,
+            "evidence": [
+                "1 bullish across 1 article(s) \u2014 severity-weighted vote resolved to bullish",
+                "FinBERT language confirmed the bullish signal (alignment score: 0.29)",
+                "direction consensus strength: 1.00 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-19T01:47:02.640468"
+        }
+    ],
+    "articles_by_ticker": {
+        "AAPL": [
+            {
+                "title": "Sandisk (SNDK) Stock Jumps 11% After Apple Flags Unavoidable Memory Price Hikes",
+                "summary": "Apple confirmed rising memory costs, pointing to supplier pricing leverage that affects upcoming products. Following these comments, Sandisk (NasdaqGS:SNDK) saw its stock surge about 11% as investors reacted to the pricing signal. Apple's move comes alongside Intel's agreement to manufacture Apple-designed AI semiconductors, reinforcing demand for high-performance memory. The current Sandisk share price is about $2,182.451, with the stock up 16% over the past week and 57.8% over the past..."
+            },
+            {
+                "title": "Apple\u2019s Latest Reveal Proves That Micron Has \u201cMore Room To Run\u201d",
+                "summary": "Gene Munster, Managing Partner of Deepwater Asset Management, used a CNBC segment on June 18, 2026 to tie together two critical semiconductor stories: Apple\u2018s willingness to raise iPhone prices and the parabolic move in memory chip stocks. His thesis: when the most operationally disciplined hardware company in the world signals it cannot absorb the full ... Apple\u2019s Latest Reveal Proves That Micron Has \u201cMore Room To Run\u201d"
+            },
+            {
+                "title": "Intel Rallies to Record After Trump Touts Apple Chip Deal",
+                "summary": "(Bloomberg) -- Intel Corp.\u2019s stock surged Thursday after US President Donald Trump said the chipmaker will work with Apple Inc. to design and produce semiconductors domestically.Most Read from BloombergRead the 14-Point Draft Memorandum Between the US and IranModi Warns of \u2018Shortage of Trust\u2019 Ahead of Trump MeetingTrump Blows Through His Iran Red Lines in Justifying Peace DealNYC Greek Eatery Kiki\u2019s Seized for Failure to Pay $1 Million TaxIran\u2019s Deputy Foreign Minister Confirms Deal Reached With"
+            },
+            {
+                "title": "Apple CEO confirms price hikes, Take Two announces GTA 6 preorder date",
+                "summary": "Yahoo Finance Senior Reporter Brooke DiPalma and Market Domination host Josh Lipton take a closer look at some of Thursday's trending tickers and stories, including Apple (AAPL), travel stocks, and Take Two (TTWO)."
+            }
+        ],
+        "SNDK": [
+            {
+                "title": "Sandisk (SNDK) Stock Jumps 11% After Apple Flags Unavoidable Memory Price Hikes",
+                "summary": "Apple confirmed rising memory costs, pointing to supplier pricing leverage that affects upcoming products. Following these comments, Sandisk (NasdaqGS:SNDK) saw its stock surge about 11% as investors reacted to the pricing signal. Apple's move comes alongside Intel's agreement to manufacture Apple-designed AI semiconductors, reinforcing demand for high-performance memory. The current Sandisk share price is about $2,182.451, with the stock up 16% over the past week and 57.8% over the past..."
+            }
+        ],
+        "INTC": [
+            {
+                "title": "Intel taps industry veteran Seok-Hee Lee to lead foundry packaging push",
+                "summary": "Intel on Thursday named Seok-Hee Lee executive vice president of its contract chip-manufacturing division \u200cas it sharpens focus on its advanced packaging business.  The \u200cAmerican chipmaker has been trying to reinvigorate its manufacturing business under CEO \u200bLip-Bu Tan, after missing out on the AI boom.  The appointment follows President Donald Trump's announcement earlier in the day that Apple had agreed to work with Intel to design and manufacture \u200cits chips in the \u2060U.S. in a boost to the chipmaker's contract manufacturing business."
+            },
+            {
+                "title": "Intel Rallies to Record After Trump Touts Apple Chip Deal",
+                "summary": "(Bloomberg) -- Intel Corp.\u2019s stock surged Thursday after US President Donald Trump said the chipmaker will work with Apple Inc. to design and produce semiconductors domestically.Most Read from BloombergRead the 14-Point Draft Memorandum Between the US and IranModi Warns of \u2018Shortage of Trust\u2019 Ahead of Trump MeetingTrump Blows Through His Iran Red Lines in Justifying Peace DealNYC Greek Eatery Kiki\u2019s Seized for Failure to Pay $1 Million TaxIran\u2019s Deputy Foreign Minister Confirms Deal Reached With"
+            },
+            {
+                "title": "Why Is Intel (INTC) Stock Rocketing Higher Today",
+                "summary": "Shares of computer processor maker Intel (NASDAQ:INTC) jumped 10.4% in the afternoon session after President Trump posted on Truth Social that \"Apple agreed to work with Intel to design and build its Chips in America.\""
+            },
+            {
+                "title": "Trump Just Sent Intel Stock Soaring. Here's Why.",
+                "summary": "Intel stock rallies as President Donald Trump says Apple has partnered with its foundry division to make chips domestically. But Wall Street remains cautious on INTC shares."
+            }
+        ],
+        "WDC": [
+            {
+                "title": "Western Digital (WDC) Is Up 45.3% After AI Storage Momentum and Rising Memory Prices - Has The Bull Case Changed?",
+                "summary": "In recent days, Western Digital has been at the center of a wave of positive research updates, product showcases for AI data centers, and stronger earnings, all tied to surging demand for high-capacity storage and memory. This momentum has been reinforced by easing geopolitical risks, industry-wide optimism on AI infrastructure, and confirmation from major customers like Apple that memory price increases are becoming unavoidable. Together, these developments highlight how Western Digital has..."
+            }
+        ]
+    }
+}
