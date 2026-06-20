@@ -1,0 +1,120 @@
+{
+    "signals": [
+        {
+            "entity": "Apple",
+            "ticker": "AAPL",
+            "signal": "neutral",
+            "confidence": 0.175,
+            "evidence": [
+                "1 bullish, 1 bearish, 2 neutral across 4 article(s) \u2014 severity-weighted vote resolved to neutral",
+                "FinBERT language conflicted with the neutral signal (alignment score: 0.00)",
+                "direction consensus strength: 0.18 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-20T05:21:39.528663"
+        },
+        {
+            "entity": "Intel",
+            "ticker": "INTC",
+            "signal": "neutral",
+            "confidence": 0.09,
+            "evidence": [
+                "3 neutral across 3 article(s) \u2014 severity-weighted vote resolved to neutral",
+                "FinBERT language conflicted with the neutral signal (alignment score: 0.00)",
+                "direction consensus strength: 0.00 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-20T05:21:39.528693"
+        },
+        {
+            "entity": "Nvidia",
+            "ticker": "NVDA",
+            "signal": "neutral",
+            "confidence": 0.06,
+            "evidence": [
+                "2 neutral across 2 article(s) \u2014 severity-weighted vote resolved to neutral",
+                "FinBERT language conflicted with the neutral signal (alignment score: 0.00)",
+                "direction consensus strength: 0.00 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-20T05:21:39.528708"
+        },
+        {
+            "entity": "Alphabet",
+            "ticker": "GOOG",
+            "signal": "neutral",
+            "confidence": 0.03,
+            "evidence": [
+                "1 neutral across 1 article(s) \u2014 severity-weighted vote resolved to neutral",
+                "FinBERT language conflicted with the neutral signal (alignment score: 0.00)",
+                "direction consensus strength: 0.00 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-20T05:21:39.528721"
+        },
+        {
+            "entity": "Microsoft",
+            "ticker": "MSFT",
+            "signal": "neutral",
+            "confidence": 0.03,
+            "evidence": [
+                "1 neutral across 1 article(s) \u2014 severity-weighted vote resolved to neutral",
+                "FinBERT language conflicted with the neutral signal (alignment score: 0.00)",
+                "direction consensus strength: 0.00 (threshold: \u00b10.2)"
+            ],
+            "timestamp": "2026-06-20T05:21:39.528733"
+        }
+    ],
+    "articles_by_ticker": {
+        "AAPL": [
+            {
+                "title": "The Memory Boom Has Been a Gift to Micron. For Apple, It's Becoming a Problem. Or Is It?",
+                "summary": "The same shortage delivering record profits to memory makers is now squeezing one of the world's most valuable companies -- and its CEO says customers will end up paying for it."
+            },
+            {
+                "title": "Bank of America predicts a major pricing shift for Apple",
+                "summary": "Apple has spent years trying to make artificial intelligence a reason for consumers to buy new devices. That strategy has become more important as rivals, including Google, Microsoft, OpenAI, and Meta, move quickly with consumer-facing AI tools. For Apple, the opportunity is clear. If AI makes the ..."
+            },
+            {
+                "title": "SpaceX Is the 5th Most Valuable Public Company in the World. Can It Overtake Nvidia, Alphabet, Apple, or Microsoft?",
+                "summary": "The largest IPO in history has continued to grow in the following days."
+            },
+            {
+                "title": "Apple Is Betting That Its Next Big Product Could Be AirPods with Cameras",
+                "summary": "Apple's next big AI bet could be AirPods with cameras, as the tech giant races to unlock its next wave of growth and innovation."
+            }
+        ],
+        "INTC": [
+            {
+                "title": "Analyst Warns Intel Valuation \u2018Doesn\u2019t Make Sense.\u2019 Suggests NVIDIA, AMD, Micron, and Broadcom as Alternatives.",
+                "summary": "D.A. Davidson\u2019s head of technology research, Gil Luria, used a CNBC \u201cClosing Bell Overtime\u201d appearance to argue that the chip rally has produced a valuation contradiction investors should not ignore. His framing: both major semiconductor ETFs are up more than 80% this year, while memory names have surged 300% or more, yet the multiples investors ... Analyst Warns Intel Valuation \u2018Doesn\u2019t Make Sense.\u2019 Suggests NVIDIA, AMD, Micron, and Broadcom as Alternatives."
+            },
+            {
+                "title": "Trump Handed Intel Stock a 10% Pop, but Markets Are Hedging",
+                "summary": "Intel stock jumped 10% on Trump's Apple chip claim, but short bets, put hedges, and flat money flow show markets staying cautious."
+            },
+            {
+                "title": "Intel Leads Big Chip Stock Rally",
+                "summary": "Trump comments spark broad semiconductor stock gains"
+            }
+        ],
+        "NVDA": [
+            {
+                "title": "Analyst Warns Intel Valuation \u2018Doesn\u2019t Make Sense.\u2019 Suggests NVIDIA, AMD, Micron, and Broadcom as Alternatives.",
+                "summary": "D.A. Davidson\u2019s head of technology research, Gil Luria, used a CNBC \u201cClosing Bell Overtime\u201d appearance to argue that the chip rally has produced a valuation contradiction investors should not ignore. His framing: both major semiconductor ETFs are up more than 80% this year, while memory names have surged 300% or more, yet the multiples investors ... Analyst Warns Intel Valuation \u2018Doesn\u2019t Make Sense.\u2019 Suggests NVIDIA, AMD, Micron, and Broadcom as Alternatives."
+            },
+            {
+                "title": "SpaceX Is the 5th Most Valuable Public Company in the World. Can It Overtake Nvidia, Alphabet, Apple, or Microsoft?",
+                "summary": "The largest IPO in history has continued to grow in the following days."
+            }
+        ],
+        "GOOG": [
+            {
+                "title": "SpaceX Is the 5th Most Valuable Public Company in the World. Can It Overtake Nvidia, Alphabet, Apple, or Microsoft?",
+                "summary": "The largest IPO in history has continued to grow in the following days."
+            }
+        ],
+        "MSFT": [
+            {
+                "title": "SpaceX Is the 5th Most Valuable Public Company in the World. Can It Overtake Nvidia, Alphabet, Apple, or Microsoft?",
+                "summary": "The largest IPO in history has continued to grow in the following days."
+            }
+        ]
+    }
+}
