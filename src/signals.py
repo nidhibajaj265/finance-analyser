@@ -6,21 +6,28 @@
 
 from pydantic import BaseModel, Field
 from typing import Literal
-from datetime import datetime
+from datetime import datetime, timezone
 from loguru import logger
+import json
+import os
+from src.config import SIGNALS_PATH
 
 class Signal(BaseModel):
     entity: str
     ticker: str
     signal: Literal['bullish', 'bearish', 'neutral']
     confidence: float = Field(ge=0, le=1)
-    evidence: list[str]
+    evidence: list[dict] = Field(default_factory=list)
     timestamp: datetime
+    technical_info: list[str] = Field(default_factory=list)
 
-class ArticleSignal(BaseModel):
+class ArticleInfoForSignal(BaseModel):
     direction: Literal["bullish", "bearish", "neutral"]
     sentiment_score: float = Field(..., ge=-1.0, le=1.0)   # FinBERT conviction — used for confidence only
     severity_weight: float = Field(default=0.3, ge=0.0, le=1.0)  # low=0.3, medium=0.6, high=1.0
+    title: str | None = None
+    summary: str | None = None
+    link: str | None = None
 
 DIRECTION_VALUE: dict[str, float] = {"bullish": 1.0, "bearish": -1.0, "neutral": 0.0}
 SEVERITY_WEIGHT: dict[str, float] = {"low": 0.3, "medium": 0.6, "high": 1.0}
@@ -29,7 +36,7 @@ BULLISH_THRESHOLD = 0.2
 BEARISH_THRESHOLD = -0.2
 
 
-def aggregate_direction(signals: list[ArticleSignal]) -> tuple[str, float]:
+def aggregate_direction(signals: list[ArticleInfoForSignal]) -> tuple[str, float]:
     total_weight = sum(DIRECTION_VALUE[s.direction] * s.severity_weight for s in signals)
     total_severity = sum(s.severity_weight for s in signals)
     aggr_severity_weight = total_weight / total_severity if total_severity else 0.0
@@ -44,7 +51,7 @@ def aggregate_direction(signals: list[ArticleSignal]) -> tuple[str, float]:
     return aggr_direction, aggr_severity_weight
 
 
-def _compute_signal(ticker: str, name: str, signals: list[ArticleSignal]) -> Signal:
+def _compute_signal(ticker: str, name: str, signals: list[ArticleInfoForSignal]) -> Signal:
     aggr_direction, aggr_severity = aggregate_direction(signals)
 
     # by doing s.sentiment_score * DIRECTION_VALUE[aggr_direction]
@@ -61,10 +68,15 @@ def _compute_signal(ticker: str, name: str, signals: list[ArticleSignal]) -> Sig
     article_breakdown = ", ".join(f"{count} {label}" for label, count in direction_counts.items() if count > 0)
     finbert_verdict = "confirmed" if avg_finbert_alignment > 0 else "conflicted with"
 
+    technical_info = [
+    f"{article_breakdown} across {len(signals)} article(s) — severity-weighted vote resolved to {aggr_direction}",
+    f"FinBERT language {finbert_verdict} the {aggr_direction} signal (alignment score: {avg_finbert_alignment:.2f})",
+    f"direction consensus strength: {abs(aggr_severity):.2f} (threshold: ±{BULLISH_THRESHOLD})"
+    ]
     evidence = [
-        f"{article_breakdown} across {len(signals)} article(s) — severity-weighted vote resolved to {aggr_direction}",
-        f"FinBERT language {finbert_verdict} the {aggr_direction} signal (alignment score: {avg_finbert_alignment:.2f})",
-        f"direction consensus strength: {abs(aggr_severity):.2f} (threshold: ±{BULLISH_THRESHOLD})",
+        {"type": "article", "title": s.title, "summary": s.summary, "link": s.link}
+        for s in signals
+        if s.title or s.summary or s.link
     ]
 
     logger.debug(f"[{ticker}] {aggr_direction} | confidence={confidence:.2f} | articles={len(signals)}")
@@ -75,13 +87,14 @@ def _compute_signal(ticker: str, name: str, signals: list[ArticleSignal]) -> Sig
         signal=aggr_direction,
         confidence=round(confidence, 3),
         evidence=evidence,
-        timestamp=datetime.utcnow(),
+        timestamp=datetime.now(timezone.utc),
+        technical_info=technical_info
     )
 
 def generate_signals(articles: list[dict]) -> list[Signal]:
     logger.info(f"Grouping {len(articles)} articles by ticker...")
 
-    signals_for_entity: dict[str, list[ArticleSignal]] = {}
+    signals_for_entity: dict[str, list[ArticleInfoForSignal]] = {}
     ticket_entity_dict: dict[str, str] = {}
 
     for article in articles:
@@ -90,10 +103,13 @@ def generate_signals(articles: list[dict]) -> list[Signal]:
             if not ticker:
                 continue
 
-            article_signal = ArticleSignal(
+            article_signal = ArticleInfoForSignal(
                 direction=article.get("direction", "neutral"),
                 sentiment_score=article.get("sentiment", 0.0),
                 severity_weight=SEVERITY_WEIGHT.get(article.get("severity", "low"), 0.3),
+                title=article.get("title"),
+                summary=article.get("summary"),
+                link=article.get("link"),
             )
             signals_for_entity.setdefault(ticker, []).append(article_signal)
             ticket_entity_dict.setdefault(ticker, entity.get("name", ticker))
@@ -101,8 +117,21 @@ def generate_signals(articles: list[dict]) -> list[Signal]:
     logger.info(f"Grouped into {len(signals_for_entity)} tickers: {list(signals_for_entity.keys())}")
 
     results = [
-        _compute_signal(ticker, ticket_entity_dict[ticker], article_signals)
-        for ticker, article_signals in signals_for_entity.items()
+        _compute_signal(ticker, ticket_entity_dict[ticker], ticker_signals)
+        for ticker, ticker_signals in signals_for_entity.items()
     ]
     logger.info(f"Generated {len(results)} signals.")
+    
+    save_signal_info(results)
     return results
+
+def save_signal_info(signal_results: Signal):
+    time_now = datetime.now(timezone.utc)
+    date_folder = time_now.strftime("%Y%b%d")
+    folder_path = os.path.join(SIGNALS_PATH, date_folder)
+    os.makedirs(folder_path, exist_ok=True)
+    file_path = os.path.join(folder_path, time_now.strftime('%H%M%S') + '.json')
+    
+    with open(file_path, 'w') as f:
+        for s in signal_results:
+            json.dump([s.model_dump(mode='json')], f, indent=4)
