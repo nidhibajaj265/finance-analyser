@@ -8,9 +8,6 @@ from pydantic import BaseModel, Field
 from typing import Literal
 from datetime import datetime, timezone
 from loguru import logger
-import json
-import os
-from src.config import SIGNALS_PATH
 
 class Signal(BaseModel):
     entity: str
@@ -121,17 +118,4 @@ def generate_signals(articles: list[dict]) -> list[Signal]:
         for ticker, ticker_signals in signals_for_entity.items()
     ]
     logger.info(f"Generated {len(results)} signals.")
-    
-    save_signal_info(results)
     return results
-
-def save_signal_info(signal_results: Signal):
-    time_now = datetime.now(timezone.utc)
-    date_folder = time_now.strftime("%Y%b%d")
-    folder_path = os.path.join(SIGNALS_PATH, date_folder)
-    os.makedirs(folder_path, exist_ok=True)
-    file_path = os.path.join(folder_path, time_now.strftime('%H%M%S') + '.json')
-    
-    with open(file_path, 'w') as f:
-        for s in signal_results:
-            json.dump([s.model_dump(mode='json')], f, indent=4)

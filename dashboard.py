@@ -1,70 +1,120 @@
-import json
-import os
+import pandas as pd
 import streamlit as st
-from src.config import SIGNALS_PATH
+import yfinance as yf
+from src.supabase_client import fetch_consolidated_signals, fetch_signals_for_ticker
 
 SIGNAL_COLOURS = {"bullish": "🟢", "bearish": "🔴", "neutral": "⚪"}
-
-
-def load_latest_signals() -> dict:
-    files = sorted(
-        [f for f in os.listdir(SIGNALS_PATH) if f.endswith(".json")],
-        reverse=True,
-    )
-    if not files:
-        return {}
-    with open(os.path.join(SIGNALS_PATH, files[0])) as f:
-        return json.load(f)
-
+HISTORY_DAYS = 7
 
 st.set_page_config(page_title="Finance Analyser", layout="wide")
-st.title("Finance Analyser — Investment Signals")
 
-data = load_latest_signals()
 
-if not data:
-    st.warning("No signals found. Run the pipeline first.")
-    st.stop()
+def list_page():
+    st.title("Finance Analyser — Investment Signals")
 
-signals = data.get("signals", [])
-articles_by_ticker = data.get("articles_by_ticker", {})
+    consolidated = fetch_consolidated_signals()
+    if not consolidated:
+        st.warning("No signals found. Run the pipeline first.")
+        return
 
-st.subheader(f"{len(signals)} signals generated")
+    st.subheader(f"{len(consolidated)} tickers — consolidated mood (last {HISTORY_DAYS} days)")
 
-cols = st.columns([1, 2, 1, 1, 2])
-cols[0].markdown("**Ticker**")
-cols[1].markdown("**Company**")
-cols[2].markdown("**Signal**")
-cols[3].markdown("**Confidence**")
-cols[4].markdown("**Timestamp**")
-
-st.divider()
-
-selected_ticker = st.session_state.get("selected_ticker")
-
-for signal in signals:
-    cols = st.columns([1, 2, 1, 1, 2])
-    if cols[0].button(signal["ticker"], key=signal["ticker"]):
-        st.session_state["selected_ticker"] = signal["ticker"]
-        selected_ticker = signal["ticker"]
-    cols[1].write(signal["entity"])
-    cols[2].write(f"{SIGNAL_COLOURS[signal['signal']]} {signal['signal']}")
-    cols[3].write(f"{signal['confidence']:.0%}")
-    cols[4].write(signal["timestamp"][:19].replace("T", " "))
-
-if selected_ticker:
+    header = st.columns([1, 2, 1, 1, 2])
+    header[0].markdown("**Ticker**")
+    header[1].markdown("**Company**")
+    header[2].markdown("**Signal**")
+    header[3].markdown("**Confidence**")
+    header[4].markdown("**Updated**")
     st.divider()
-    selected = next((s for s in signals if s["ticker"] == selected_ticker), None)
-    if selected:
-        st.subheader(f"{selected['entity']} ({selected_ticker})")
 
-        st.markdown("**Evidence**")
-        for point in selected["evidence"]:
-            st.markdown(f"- {point}")
+    for row in consolidated:
+        cols = st.columns([1, 2, 1, 1, 2])
+        if cols[0].button(row["ticker"], key=row["ticker"]):
+            st.session_state["selected_ticker"] = row["ticker"]
+            st.switch_page(detail)
+        cols[1].write(row["entity"])
+        cols[2].write(f"{SIGNAL_COLOURS[row['signal']]} {row['signal']}")
+        cols[3].write(f"{row['confidence']:.0%}")
+        cols[4].write(row["updated_at"][:19].replace("T", " "))
 
-        articles = articles_by_ticker.get(selected_ticker, [])
-        if articles:
-            st.markdown(f"**Articles ({len(articles)})**")
-            for article in articles:
-                with st.expander(article["title"] or "Untitled"):
-                    st.write(article["summary"] or "No summary available.")
+
+@st.cache_data(ttl=3600)
+def fetch_stock_prices(ticker: str, days: int = 7) -> pd.DataFrame:
+    # hourly bars give a readable intraday movement line over the window.
+    data = yf.Ticker(ticker).history(period=f"{days}d", interval="1h")
+    return data[["Close"]]
+
+
+def _consolidate_articles(history: list[dict]) -> list[dict]:
+    # gather every article across the window, deduped by link (falling back to title).
+    seen: dict[str, dict] = {}
+    for signal in history:
+        for item in signal.get("evidence", []) or []:
+            if not isinstance(item, dict):
+                continue
+            key = item.get("link") or item.get("title")
+            if key and key not in seen:
+                seen[key] = item
+    return list(seen.values())
+
+
+def _consolidate_technical_info(history: list[dict]) -> list[str]:
+    notes: list[str] = []
+    for signal in history:
+        # newer rows carry reasoning in technical_info; older backfilled rows
+        # stored reasoning as plain strings inside evidence.
+        candidates = signal.get("technical_info", []) or [
+            e for e in (signal.get("evidence", []) or []) if isinstance(e, str)
+        ]
+        for note in candidates:
+            if note not in notes:
+                notes.append(note)
+    return notes
+
+
+def detail_page():
+    ticker = st.session_state.get("selected_ticker")
+    if not ticker:
+        st.info("Pick a ticker from the Signals page.")
+        return
+
+    if st.button("← Back to signals"):
+        st.switch_page(listing)
+
+    history = fetch_signals_for_ticker(ticker, HISTORY_DAYS)
+    entity = history[0]["entity"] if history else ticker
+    st.title(f"{entity} ({ticker})")
+
+    if not history:
+        st.info("No individual signals in the selected window.")
+        return
+
+    st.subheader(f"Price — last {HISTORY_DAYS} days")
+    prices = fetch_stock_prices(ticker, HISTORY_DAYS)
+    if prices.empty:
+        st.info("No price data available from Yahoo Finance for this ticker.")
+    else:
+        st.line_chart(prices, y="Close")
+
+    articles = _consolidate_articles(history)
+    if articles:
+        st.subheader("Related articles")
+        for article in articles:
+            title = article.get("title") or "Untitled"
+            link = article.get("link")
+            st.markdown(f"#### [{title}]({link})" if link else f"#### {title}")
+            if article.get("summary"):
+                st.write(article["summary"])
+
+    notes = _consolidate_technical_info(history)
+    if notes:
+        st.divider()
+        corner = st.columns([1, 4])
+        with corner[0].popover("⚙️ technical info"):
+            for note in notes:
+                st.markdown(f"- {note}")
+
+
+listing = st.Page(list_page, title="Signals", url_path="signals", default=True)
+detail = st.Page(detail_page, title="Ticker detail", url_path="ticker")
+st.navigation([listing, detail], position="hidden").run()

@@ -1,14 +1,12 @@
-import json
-from datetime import datetime
 from typing import TypedDict
 from langgraph.graph import StateGraph, END
 from src.signals import Signal
-from src.config import SIGNALS_PATH
 from src.data_handler import fetch_articles
 from src.sentiment import generate_sentiment_report
 from src.entities import match_entities_to_articles
 from src.events import classify_articles
 from src.signals import generate_signals
+from src.supabase_client import save_signals, consolidate_signals
 from loguru import logger
 
 class GraphState(TypedDict):
@@ -41,29 +39,9 @@ def article_event_classification_node(state: GraphState) -> dict:
 
 def signal_generation_node(state: GraphState) -> dict:
     signals = generate_signals(state['articles'])
+    save_signals(signals)
+    consolidate_signals()
     return {"signals": signals}
-
-def save_node(state: GraphState) -> dict:
-    articles_by_ticker: dict[str, list[dict]] = {}
-    for article in state["articles"]:
-        for entity in article.get("entities", []):
-            ticker = entity.get("ticker")
-            if ticker:
-                articles_by_ticker.setdefault(ticker, []).append({
-                    "title": article.get("title", ""),
-                    "summary": article.get("summary", ""),
-                })
-
-    file_name = datetime.now().strftime('%Y%b%d_%H%M%S') + '.json'
-    file_path = f"{SIGNALS_PATH}/{file_name}"
-
-    with open(file_path, "w") as f:
-        json.dump({
-            "signals": [s.model_dump(mode="json") for s in state["signals"]],
-            "articles_by_ticker": articles_by_ticker,
-        }, f, indent=4)
-    logger.info(f"Saved {len(state['signals'])} signals to {file_path}")
-    return {}
 
 graph.add_node("ingestion", ingest_node)
 graph.add_node("sentiment_analysis", sentiment_node)
