@@ -1,5 +1,25 @@
-import pandas as pd
+import os
 import streamlit as st
+
+
+def _bridge_secrets() -> None:
+    # On Streamlit Cloud, credentials live in st.secrets; src.config reads os.environ.
+    # Copy them across before importing src modules (those imports build the Supabase client).
+    try:
+        secrets = st.secrets
+    except Exception:
+        return
+    for key in ("SUPABASE_URL", "SUPABASE_KEY", "HF_TOKEN"):
+        try:
+            if key in secrets and key not in os.environ:
+                os.environ[key] = secrets[key]
+        except Exception:
+            pass
+
+
+_bridge_secrets()
+
+import pandas as pd
 import yfinance as yf
 from newspaper import Article
 from src.supabase_client import fetch_consolidated_signals, fetch_signals_for_ticker
