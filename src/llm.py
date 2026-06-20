@@ -39,3 +39,28 @@ def call_llm(user_prompt: str, system_prompt:str = DEFAULT_SYSTEM_PROMPT_LLM) ->
     )
 
     return completion.choices[0].message.content
+
+SUMMARY_SYSTEM_PROMPT = (
+    "You are a financial news summariser. Summarise the given article in about 200 words "
+    "of clear, plain prose. Focus on the facts and market relevance. Do not add a preamble "
+    "or headings — return only the summary text."
+)
+
+@retry(
+    retry=retry_if_exception_type((HfHubHTTPError, ConnectionError)),
+    wait=wait_exponential(multiplier=1, min=2, max=10),
+    stop=stop_after_attempt(3),
+    reraise=True,
+    before_sleep=_log_retry,
+)
+def summarise_article_text(text: str) -> str:
+    logger.info(f"Summarising article text ({len(text)} chars)...")
+    completion = client.chat.completions.create(
+        model=LLM_MODEL,
+        messages=[
+            {"role": "system", "content": SUMMARY_SYSTEM_PROMPT},
+            {"role": "user", "content": text[:6000]},
+        ],
+        max_tokens=400,
+    )
+    return completion.choices[0].message.content

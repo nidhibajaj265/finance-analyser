@@ -22,7 +22,7 @@ jobs:
           cache: 'pip'
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r requirements-pipeline.txt
 
       - name: Download NLTK data
         run: python -c "import nltk; nltk.download('punkt_tab')"

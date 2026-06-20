@@ -1,12 +1,28 @@
 import pandas as pd
 import streamlit as st
 import yfinance as yf
+from newspaper import Article
 from src.supabase_client import fetch_consolidated_signals, fetch_signals_for_ticker
+from src.llm import summarise_article_text
 
 SIGNAL_COLOURS = {"bullish": "🟢", "bearish": "🔴", "neutral": "⚪"}
 HISTORY_DAYS = 7
 
 st.set_page_config(page_title="Finance Analyser", layout="wide")
+
+# Style the "Summarise" link: recolour it and pull it up close to the article summary.
+st.markdown(
+    """
+    <style>
+    button[kind="tertiary"] {
+        color: #2563eb !important;
+        margin-top: -14px !important;
+        padding-top: 0 !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
 
 def list_page():
@@ -43,6 +59,18 @@ def fetch_stock_prices(ticker: str, days: int = 7) -> pd.DataFrame:
     # hourly bars give a readable intraday movement line over the window.
     data = yf.Ticker(ticker).history(period=f"{days}d", interval="1h")
     return data[["Close"]]
+
+
+@st.cache_data(ttl=86400, show_spinner=False)
+def summarise_article(link: str) -> str:
+    # full article text isn't stored on the signal, so fetch it on demand, then summarise.
+    article = Article(link)
+    article.download()
+    article.parse()
+    text = (article.text or "").strip()
+    if not text:
+        return "Could not retrieve the article text to summarise."
+    return summarise_article_text(text)
 
 
 def _consolidate_articles(history: list[dict]) -> list[dict]:
@@ -99,12 +127,19 @@ def detail_page():
     articles = _consolidate_articles(history)
     if articles:
         st.subheader("Related articles")
+        summarised = st.session_state.setdefault("summarised", set())
         for article in articles:
             title = article.get("title") or "Untitled"
             link = article.get("link")
-            st.markdown(f"#### [{title}]({link})" if link else f"#### {title}")
+            st.markdown(f"**[{title}]({link})**" if link else f"**{title}**")
             if article.get("summary"):
                 st.write(article["summary"])
+            if link:
+                if st.button("Summarise", key=f"sum_{link}", type="tertiary"):
+                    summarised.add(link)
+                if link in summarised:
+                    with st.spinner("Summarising…"):
+                        st.caption(summarise_article(link))
 
     notes = _consolidate_technical_info(history)
     if notes:
