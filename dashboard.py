@@ -105,8 +105,16 @@ st.markdown(
 
 
 def list_page():
-    st.title("📈 Next-Gen Finance")
-    st.caption("AI-generated investment signals")
+    st.markdown(
+        """
+        <div style="background-color:#1e293b; border:1px solid #334155; border-radius:12px;
+                    padding:1.2rem; text-align:center; margin-bottom:1.2rem;">
+            <h1 style="color:#93c5fd; margin:0;">📈 Next-Gen Finance</h1>
+            <p style="color:#94a3b8; margin:0.3rem 0 0 0;">AI-generated investment signals</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
     consolidated = fetch_consolidated_signals()
     if not consolidated:
