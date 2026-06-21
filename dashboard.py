@@ -65,6 +65,10 @@ st.set_page_config(page_title="Finance Analyser", layout="wide")
 st.markdown(
     """
     <style>
+    /* trim the default empty space above the page heading */
+    .block-container { padding-top: 2rem !important; }
+    /* page heading colour */
+    .block-container h1 { color: #1e3a8a !important; }
     button[kind="tertiary"] {
         color: #2563eb !important;
         margin-top: -14px !important;

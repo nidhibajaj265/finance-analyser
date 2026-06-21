@@ -32,15 +32,25 @@ def match_entities_to_articles(article_list: list[dict]) -> list[dict]:
     for article in article_list:
         matches = []
         for name, ticker in company_info.items():
-            pattern = r'\b' + re.escape(name) + r'\b'
-            title_hits = re.findall(pattern, article['title'], re.IGNORECASE)
-            text_hits = re.findall(pattern, article['text'], re.IGNORECASE)
+            # All matching is case-SENSITIVE. The name matches in its stored (proper) case
+            # OR fully uppercase — this catches ALL-CAPS headlines and casing mismatches
+            # (stored "Nvidia" vs article "NVIDIA") while ignoring lowercase common words
+            # ("apple" the fruit, "target" the verb). The ticker (2+ chars) is added the
+            # same way, so "AMD" matches but "amd"/"all"/"it" don't.
+            variants = {name, name.upper()}
+            if len(ticker) >= 2:
+                variants.add(ticker)
+            pattern = r'\b(?:' + '|'.join(re.escape(v) for v in variants) + r')\b'
+
+            title_hits = len(re.findall(pattern, article['title']))
+            text_hits = len(re.findall(pattern, article['text']))
+
             if title_hits or text_hits:
                 confidence = 0
                 if title_hits:
                     confidence = 0.5
                 if text_hits:
-                    confidence = confidence + min(0.1 * len(text_hits), 0.5)
+                    confidence = confidence + min(0.1 * text_hits, 0.5)
                 if confidence > 0.7:
                     matches.append({"ticker": ticker, "name": name, "confidence": confidence})
 
