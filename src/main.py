@@ -4,7 +4,7 @@ from loguru import logger
 from src.graph import app
 
 logger.remove()
-logger.add(sys.stderr, level="INFO")
+logger.add("app.log", level="INFO", rotation="100 MB", retention="10 days")
 
 if __name__ == "__main__":
     result = asyncio.run(app.ainvoke({}))

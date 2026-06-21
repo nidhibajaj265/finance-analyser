@@ -22,11 +22,42 @@ _bridge_secrets()
 import pandas as pd
 import yfinance as yf
 from newspaper import Article
-from src.supabase_client import fetch_consolidated_signals, fetch_signals_for_ticker
+from src.supabase_client import (
+    fetch_consolidated_signals,
+    fetch_signals_for_ticker,
+    fetch_latest_run_articles,
+)
 from src.llm import summarise_article_text
 
 SIGNAL_COLOURS = {"bullish": "🟢", "bearish": "🔴", "neutral": "⚪"}
+SIGNAL_BG = {"bullish": "green", "bearish": "red", "neutral": "gray"}
 HISTORY_DAYS = 7
+SIGNALS_PER_PAGE = 10
+
+
+def signal_badge(signal: str) -> str:
+    return f":{SIGNAL_BG[signal]}-background[{SIGNAL_COLOURS[signal]} {signal}]"
+
+
+def confidence_text(conf: float) -> str:
+    colour = "green" if conf >= 0.5 else "orange" if conf >= 0.2 else "gray"
+    return f":{colour}[**{conf:.0%}**]"
+
+
+def article_tags(article: dict) -> str:
+    # direction (coloured), event category, then the matched company tickers — shown on top of the article.
+    parts = []
+    direction = article.get("direction")
+    if direction in SIGNAL_BG:
+        parts.append(signal_badge(direction))
+    category = article.get("category")
+    if category:
+        parts.append(f":violet-background[{category}]")
+    for entity in article.get("entities", []) or []:
+        ticker = entity.get("ticker")
+        if ticker:
+            parts.append(f":blue-background[{ticker}]")
+    return " ".join(parts)
 
 st.set_page_config(page_title="Finance Analyser", layout="wide")
 
@@ -39,6 +70,29 @@ st.markdown(
         margin-top: -14px !important;
         padding-top: 0 !important;
     }
+    /* ---- compact styling, scoped to the signals table only ---- */
+    /* pull the table up close to the header row */
+    .st-key-signalrows { margin-top: -0.5rem; }
+    /* tighten vertical spacing so the ticker rows sit closer together */
+    .st-key-signalrows div[data-testid="stVerticalBlock"] { gap: 0rem; }
+    /* shrink the bordered row cards: minimal internal padding */
+    .st-key-signalrows div[data-testid="stVerticalBlockBorderWrapper"] { padding: 0rem 0.6rem !important; }
+    /* alternating row colours (zebra striping) */
+    .st-key-signalrows [class*="st-key-signalrow_even_"] { background-color: #f1f5f9 !important; }
+    .st-key-signalrows [class*="st-key-signalrow_odd_"]  { background-color: #ffffff !important; }
+    /* smaller, tighter buttons so rows aren't tall */
+    .st-key-signalrows div[data-testid="stButton"] button {
+        padding: 0rem 0.4rem !important;
+        min-height: 0 !important;
+        line-height: 1.2 !important;
+        font-size: 0.8rem !important;
+    }
+    /* remove default top/bottom margin on cell text and shrink it to match */
+    .st-key-signalrows div[data-testid="stMarkdownContainer"] p {
+        margin-bottom: 0 !important;
+        font-size: 0.8rem !important;
+        line-height: 1.2 !important;
+    }
     </style>
     """,
     unsafe_allow_html=True,
@@ -46,32 +100,64 @@ st.markdown(
 
 
 def list_page():
-    st.title("Finance Analyser — Investment Signals")
+    st.title("📈 Next-Gen Finance")
+    st.caption("AI-generated investment signals")
 
     consolidated = fetch_consolidated_signals()
     if not consolidated:
         st.warning("No signals found. Run the pipeline first.")
         return
 
-    st.subheader(f"{len(consolidated)} tickers — consolidated mood (last {HISTORY_DAYS} days)")
+    total_pages = max(1, (len(consolidated) + SIGNALS_PER_PAGE - 1) // SIGNALS_PER_PAGE)
+    page = max(0, min(st.session_state.get("signals_page", 0), total_pages - 1))
+    start = page * SIGNALS_PER_PAGE
+    page_rows = consolidated[start:start + SIGNALS_PER_PAGE]
 
-    header = st.columns([1, 2, 1, 1, 2])
+    header = st.columns([1, 2, 1, 1, 2], vertical_alignment="center")
     header[0].markdown("**Ticker**")
     header[1].markdown("**Company**")
     header[2].markdown("**Signal**")
     header[3].markdown("**Confidence**")
     header[4].markdown("**Updated**")
-    st.divider()
 
-    for row in consolidated:
-        cols = st.columns([1, 2, 1, 1, 2])
-        if cols[0].button(row["ticker"], key=row["ticker"]):
-            st.session_state["selected_ticker"] = row["ticker"]
-            st.switch_page(detail)
-        cols[1].write(row["entity"])
-        cols[2].write(f"{SIGNAL_COLOURS[row['signal']]} {row['signal']}")
-        cols[3].write(f"{row['confidence']:.0%}")
-        cols[4].write(row["updated_at"][:19].replace("T", " "))
+    with st.container(key="signalrows"):
+        for i, row in enumerate(page_rows):
+            parity = "even" if i % 2 == 0 else "odd"
+            with st.container(border=True, key=f"signalrow_{parity}_{i}"):
+                cols = st.columns([1, 2, 1, 1, 2], vertical_alignment="center")
+                if cols[0].button(row["ticker"], key=row["ticker"]):
+                    st.session_state["selected_ticker"] = row["ticker"]
+                    st.session_state["selected_row"] = row
+                    st.switch_page(detail)
+                cols[1].write(row["entity"])
+                cols[2].markdown(signal_badge(row["signal"]))
+                cols[3].markdown(confidence_text(row["confidence"]))
+                cols[4].write(row["updated_at"][:19].replace("T", " "))
+
+    prev, info, nxt = st.columns([1, 2, 1])
+    if prev.button("← Prev", disabled=page == 0, use_container_width=True):
+        st.session_state["signals_page"] = page - 1
+        st.rerun()
+    info.markdown(f"<div style='text-align:center'>Page {page + 1} of {total_pages}</div>", unsafe_allow_html=True)
+    if nxt.button("Next →", disabled=page >= total_pages - 1, use_container_width=True):
+        st.session_state["signals_page"] = page + 1
+        st.rerun()
+
+    st.divider()
+    st.subheader("📰 Latest news")
+    articles = fetch_latest_run_articles()
+    if not articles:
+        st.info("No articles from the latest run yet.")
+        return
+
+    for article in articles:
+        st.markdown(article_tags(article))
+        title = article.get("title") or "Untitled"
+        link = article.get("link")
+        st.markdown(f"**[{title}]({link})**" if link else f"**{title}**")
+        if article.get("summary"):
+            st.write(article["summary"])
+        st.divider()
 
 
 @st.cache_data(ttl=3600)
@@ -132,6 +218,12 @@ def detail_page():
     history = fetch_signals_for_ticker(ticker, HISTORY_DAYS)
     entity = history[0]["entity"] if history else ticker
     st.title(f"{entity} ({ticker})")
+
+    row = st.session_state.get("selected_row", {})
+    if row.get("ticker") == ticker:
+        mood, conf = st.columns([1, 1])
+        mood.markdown(f"#### {signal_badge(row['signal'])}")
+        conf.metric("Consolidated confidence", f"{row['confidence']:.0%}")
 
     if not history:
         st.info("No individual signals in the selected window.")

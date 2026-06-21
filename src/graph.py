@@ -6,7 +6,7 @@ from src.sentiment import generate_sentiment_report
 from src.entities import match_entities_to_articles
 from src.events import classify_articles
 from src.signals import generate_signals
-from src.supabase_client import save_signals, consolidate_signals
+from src.supabase_client import save_signals, save_articles, consolidate_signals
 from loguru import logger
 
 class GraphState(TypedDict):
@@ -40,6 +40,7 @@ def article_event_classification_node(state: GraphState) -> dict:
 def signal_generation_node(state: GraphState) -> dict:
     signals = generate_signals(state['articles'])
     save_signals(signals)
+    save_articles(state['articles'])
     consolidate_signals()
     return {"signals": signals}
 

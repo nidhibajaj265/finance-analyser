@@ -19,6 +19,39 @@ def save_signals(entity_signals: list[Signal]) -> None:
     supabase.table('signals').insert(rows).execute()
     logger.info(f"Saved {len(rows)} to DB")
 
+ARTICLE_COLUMNS = ["title", "summary", "link", "category", "severity", "direction", "sentiment", "entities"]
+
+def save_articles(articles: list[dict]) -> None:
+    if not articles:
+        logger.warning("No articles to save to Database")
+        return
+
+    run_at = datetime.now(timezone.utc).isoformat()
+    rows = [
+        {col: article.get(col) for col in ARTICLE_COLUMNS} | {"run_at": run_at}
+        for article in articles
+    ]
+    supabase.table('articles').insert(rows).execute()
+    logger.info(f"Saved {len(rows)} articles to DB")
+
+def fetch_latest_run_articles() -> list[dict]:
+    response = (
+        supabase.table('articles')
+        .select('*')
+        .order('run_at', desc=True)
+        .limit(200)
+        .execute())
+
+    rows = response.data
+    if not rows:
+        logger.info("No articles found in DB")
+        return []
+
+    latest_run = rows[0]['run_at']
+    latest = [r for r in rows if r['run_at'] == latest_run]
+    logger.info(f"Fetched {len(latest)} articles from the latest run")
+    return latest
+
 def fetch_recent_signals(days: int = 7) ->list[dict]:
     cutoff = datetime.now(timezone.utc) - timedelta(days=days)
     response = (
@@ -69,31 +102,40 @@ def consolidate_signals(days: int = 7) -> None:
 
     now = datetime.now(timezone.utc)
     for ticker, ticker_signals in signals_per_entity.items():
-        total_conf = 0.0
-        weighted_conf_with_direction = 0.0
+        # TODO(revisit): confidence = avg conviction × consensus strength. Come back to this
+        # logic — consider folding in coverage (number of articles/runs backing the signal).
+        total_recency = 0.0                # Σ recency                    -> conviction denominator
+        total_conf = 0.0                   # Σ (confidence × recency)     -> conviction numerator
+        weighted_conf_with_direction = 0.0 # Σ (direction × confidence × recency)
         for s in ticker_signals:
             age_days = (now - datetime.fromisoformat(s["timestamp"])).total_seconds() / 86400
             recency = 0.5 ** (age_days/HALF_LIFE_DAYS)
             confidence_with_recency = recency * s["confidence"]
+            total_recency += recency
             total_conf += confidence_with_recency
-            weighted_conf_with_direction += DIRECTION_VALUE[s["signal"]] * confidence_with_recency 
-            
-        consolidated_conf = weighted_conf_with_direction / total_conf if total_conf else 0.0
+            weighted_conf_with_direction += DIRECTION_VALUE[s["signal"]] * confidence_with_recency
 
-        if consolidated_conf > BULLISH_THRESHOLD:
+        # direction_score in [-1, 1]: which way the signals lean and how strongly they agree.
+        direction_score = weighted_conf_with_direction / total_conf if total_conf else 0.0
+        # avg_conviction in [0, 1]: how confident the signals were on average (recency-weighted).
+        avg_conviction = total_conf / total_recency if total_recency else 0.0
+        # final confidence rewards BOTH strong conviction AND agreement.
+        consolidated_confidence = avg_conviction * abs(direction_score)
+
+        if direction_score > BULLISH_THRESHOLD:
             label = "bullish"
-        elif consolidated_conf < BEARISH_THRESHOLD:
+        elif direction_score < BEARISH_THRESHOLD:
             label = "bearish"
         else:
             label = "neutral"
 
         consolidated_signals.append({
-         "ticker": ticker,
+            "ticker": ticker,
             "entity": ticker_signals[0]["entity"],   # rows are newest-first, so [0] is latest
             "signal": label,
-            "confidence": abs(consolidated_conf),
+            "confidence": round(consolidated_confidence, 3),
             "updated_at": datetime.now(timezone.utc).isoformat(),
-        })   
+        })
 
     supabase.table("consolidated_signals").upsert(consolidated_signals).execute()
     logger.info(f"Consolidated signals {len(consolidated_signals)} added to DB")
