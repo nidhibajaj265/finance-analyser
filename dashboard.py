@@ -1,4 +1,5 @@
 import os
+from collections import Counter
 import streamlit as st
 
 
@@ -68,9 +69,9 @@ st.markdown(
     /* trim the default empty space above the page heading */
     .block-container { padding-top: 2rem !important; }
     /* page heading colour */
-    .block-container h1 { color: #1e3a8a !important; }
+    .block-container h1 { color: #93c5fd !important; }
     button[kind="tertiary"] {
-        color: #2563eb !important;
+        color: #60a5fa !important;
         margin-top: -14px !important;
         padding-top: 0 !important;
     }
@@ -82,8 +83,8 @@ st.markdown(
     /* shrink the bordered row cards: minimal internal padding */
     .st-key-signalrows div[data-testid="stVerticalBlockBorderWrapper"] { padding: 0rem 0.6rem !important; }
     /* alternating row colours (zebra striping) */
-    .st-key-signalrows [class*="st-key-signalrow_even_"] { background-color: #f1f5f9 !important; }
-    .st-key-signalrows [class*="st-key-signalrow_odd_"]  { background-color: #ffffff !important; }
+    .st-key-signalrows [class*="st-key-signalrow_even_"] { background-color: #1e293b !important; }
+    .st-key-signalrows [class*="st-key-signalrow_odd_"]  { background-color: #0f172a !important; }
     /* smaller, tighter buttons so rows aren't tall */
     .st-key-signalrows div[data-testid="stButton"] button {
         padding: 0rem 0.4rem !important;
@@ -111,6 +112,20 @@ def list_page():
     if not consolidated:
         st.warning("No signals found. Run the pipeline first.")
         return
+
+    # KPI summary row
+    counts = Counter(row["signal"] for row in consolidated)
+    latest = max((row["updated_at"] for row in consolidated), default="")
+    kpis = st.columns(4)
+    kpis[0].metric("Tickers tracked", len(consolidated), border=True)
+    kpis[1].metric("🟢 Bullish", counts.get("bullish", 0), border=True)
+    kpis[2].metric("🔴 Bearish", counts.get("bearish", 0), border=True)
+    kpis[3].metric("⚪ Neutral", counts.get("neutral", 0), border=True)
+    if latest:
+        st.caption(f"Last updated {latest[:19].replace('T', ' ')} UTC")
+
+    st.divider()
+    st.subheader(f"Signals — consolidated mood (last {HISTORY_DAYS} days)")
 
     total_pages = max(1, (len(consolidated) + SIGNALS_PER_PAGE - 1) // SIGNALS_PER_PAGE)
     page = max(0, min(st.session_state.get("signals_page", 0), total_pages - 1))
