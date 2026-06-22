@@ -20,6 +20,7 @@ def _bridge_secrets() -> None:
 
 _bridge_secrets()
 
+import altair as alt
 import pandas as pd
 import yfinance as yf
 from newspaper import Article
@@ -107,10 +108,15 @@ st.markdown(
 def list_page():
     st.markdown(
         """
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap');
+        </style>
         <div style="background-color:#1e293b; border:1px solid #334155; border-radius:12px;
                     padding:1.2rem; text-align:center; margin-bottom:1.2rem;">
-            <h1 style="color:#93c5fd; margin:0;">📈 Next-Gen Finance</h1>
-            <p style="color:#94a3b8; margin:0.3rem 0 0 0;">AI-generated investment signals</p>
+            <h1 style="font-family:'Space Grotesk', sans-serif; font-weight:700; letter-spacing:0.5px;
+                       color:#93c5fd; margin:0;">📈 Next-Gen Finance</h1>
+            <p style="font-family:'Space Grotesk', sans-serif; color:#94a3b8; margin:0.3rem 0 0 0;">
+                AI-generated investment signals</p>
         </div>
         """,
         unsafe_allow_html=True,
@@ -187,11 +193,21 @@ def list_page():
         st.divider()
 
 
+# label -> (yfinance period, interval) — interval picked so each range stays readable.
+PRICE_RANGES = {
+    "7D": ("7d", "1h"),
+    "1M": ("1mo", "1d"),
+    "1Y": ("1y", "1d"),
+    "5Y": ("5y", "1wk"),
+}
+# x-axis tick format per range — date only (no time), with year for the long ranges.
+X_AXIS_FORMAT = {"7D": "%b %d", "1M": "%b %d", "1Y": "%b %Y", "5Y": "%b %Y"}
+
+
 @st.cache_data(ttl=3600)
-def fetch_stock_prices(ticker: str, days: int = 7) -> pd.DataFrame:
-    # hourly bars give a readable intraday movement line over the window.
-    data = yf.Ticker(ticker).history(period=f"{days}d", interval="1h")
-    return data[["Close"]]
+def fetch_stock_prices(ticker: str, period: str, interval: str) -> pd.DataFrame:
+    data = yf.Ticker(ticker).history(period=period, interval=interval)
+    return data[["Close"]].rename(columns={"Close": "Price"})
 
 
 @st.cache_data(ttl=86400, show_spinner=False)
@@ -256,12 +272,26 @@ def detail_page():
         st.info("No individual signals in the selected window.")
         return
 
-    st.subheader(f"Price — last {HISTORY_DAYS} days")
-    prices = fetch_stock_prices(ticker, HISTORY_DAYS)
+    st.subheader("Price trend")
+    range_label = st.segmented_control(
+        "Range", list(PRICE_RANGES), default="7D", key="price_range", label_visibility="collapsed"
+    ) or "7D"
+    period, interval = PRICE_RANGES[range_label]
+    prices = fetch_stock_prices(ticker, period, interval)
     if prices.empty:
         st.info("No price data available from Yahoo Finance for this ticker.")
     else:
-        st.line_chart(prices, y="Close")
+        df = prices.reset_index()
+        df.columns = ["time", "Price"]
+        chart = (
+            alt.Chart(df)
+            .mark_line()
+            .encode(
+                x=alt.X("time:T", title=None, axis=alt.Axis(format=X_AXIS_FORMAT[range_label])),
+                y=alt.Y("Price:Q", title=None),
+            )
+        )
+        st.altair_chart(chart, use_container_width=True)
 
     articles = _consolidate_articles(history)
     if articles:
