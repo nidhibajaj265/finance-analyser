@@ -74,6 +74,28 @@ def fetch_consolidated_signals() -> list[dict]:
     logger.info(f"Fetched {len(response.data)} consolidated signals from DB")
     return response.data
 
+def save_top_gainers(rows: list[dict]) -> None:
+    if not rows:
+        logger.warning("No top gainers to save to Database")
+        return
+    # daily full-refresh snapshot: clear yesterday's rows, then insert today's.
+    supabase.table("top_gainers").delete().neq("period", "").execute()
+    supabase.table("top_gainers").insert(rows).execute()
+    logger.info(f"Saved {len(rows)} top gainers to DB")
+
+
+def fetch_top_gainers() -> list[dict]:
+    response = (
+        supabase.table("top_gainers")
+        .select("*")
+        .order("period")
+        .order("rank")
+        .execute())
+
+    logger.info(f"Fetched {len(response.data)} top gainers from DB")
+    return response.data
+
+
 def fetch_signals_for_ticker(ticker: str, days: int = 7) -> list[dict]:
     cutoff = datetime.now(timezone.utc) - timedelta(days=days)
     response = (
@@ -139,5 +161,16 @@ def consolidate_signals(days: int = 7) -> None:
 
     supabase.table("consolidated_signals").upsert(consolidated_signals).execute()
     logger.info(f"Consolidated signals {len(consolidated_signals)} added to DB")
+
+    # Drop tickers that have fallen out of the 7-day window. consolidated_signals
+    # holds every ticker with a signal in the last 7 days; any ticker still in the
+    # table but not in this set has had no signal for >7 days. Without this, an old
+    # high-confidence row (e.g. JBL after a news-heavy week) lingers forever.
+    fresh_tickers = [row["ticker"] for row in consolidated_signals]
+    existing = supabase.table("consolidated_signals").select("ticker").execute().data
+    stale_tickers = [r["ticker"] for r in existing if r["ticker"] not in fresh_tickers]
+    if stale_tickers:
+        supabase.table("consolidated_signals").delete().in_("ticker", stale_tickers).execute()
+        logger.info(f"Removed {len(stale_tickers)} stale tickers: {stale_tickers}")
     
 

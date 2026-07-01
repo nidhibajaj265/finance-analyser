@@ -28,6 +28,7 @@ from src.supabase_client import (
     fetch_consolidated_signals,
     fetch_signals_for_ticker,
     fetch_latest_run_articles,
+    fetch_top_gainers,
 )
 from src.llm import summarise_article_text
 
@@ -105,6 +106,96 @@ st.markdown(
 )
 
 
+def render_signals(consolidated: list[dict]) -> None:
+    """Top-left panel: the tickers surfaced from the articles, with their consolidated signal."""
+    counts = Counter(row["signal"] for row in consolidated)
+    latest = max((row["updated_at"] for row in consolidated), default="")
+    st.caption(
+        f"**{len(consolidated)}** tracked · 🟢 {counts.get('bullish', 0)} · "
+        f"🔴 {counts.get('bearish', 0)} · ⚪ {counts.get('neutral', 0)}"
+        + (f"  ·  updated {latest[:16].replace('T', ' ')} UTC" if latest else "")
+    )
+
+    total_pages = max(1, (len(consolidated) + SIGNALS_PER_PAGE - 1) // SIGNALS_PER_PAGE)
+    page = max(0, min(st.session_state.get("signals_page", 0), total_pages - 1))
+    start = page * SIGNALS_PER_PAGE
+    page_rows = consolidated[start:start + SIGNALS_PER_PAGE]
+
+    header = st.columns([1, 2, 1, 1], vertical_alignment="center")
+    header[0].markdown("**Ticker**")
+    header[1].markdown("**Company**")
+    header[2].markdown("**Signal**")
+    header[3].markdown("**Conf.**")
+
+    with st.container(key="signalrows"):
+        for i, row in enumerate(page_rows):
+            parity = "even" if i % 2 == 0 else "odd"
+            with st.container(border=True, key=f"signalrow_{parity}_{i}"):
+                cols = st.columns([1, 2, 1, 1], vertical_alignment="center")
+                if cols[0].button(row["ticker"], key=row["ticker"]):
+                    st.session_state["selected_ticker"] = row["ticker"]
+                    st.session_state["selected_row"] = row
+                    st.switch_page(detail)
+                cols[1].write(row["entity"])
+                cols[2].markdown(signal_badge(row["signal"]))
+                cols[3].markdown(confidence_text(row["confidence"]))
+
+    prev, info, nxt = st.columns([1, 2, 1])
+    if prev.button("← Prev", disabled=page == 0, use_container_width=True):
+        st.session_state["signals_page"] = page - 1
+        st.rerun()
+    info.markdown(f"<div style='text-align:center'>Page {page + 1} of {total_pages}</div>", unsafe_allow_html=True)
+    if nxt.button("Next →", disabled=page >= total_pages - 1, use_container_width=True):
+        st.session_state["signals_page"] = page + 1
+        st.rerun()
+
+
+def render_top_gainers() -> None:
+    """Top-right panel: biggest movers over 7D/1M/1Y/5Y (precomputed daily, read from Supabase)."""
+    gainers = fetch_top_gainers()
+    if not gainers:
+        st.info("Top gainers not computed yet — the daily job hasn't run.")
+        return
+
+    by_period: dict[str, list[dict]] = {}
+    for g in gainers:
+        by_period.setdefault(g["period"], []).append(g)
+
+    label = st.segmented_control(
+        "Range", list(PRICE_RANGES), default="7D", key="gainers_range", label_visibility="collapsed"
+    ) or "7D"
+    computed = max((g.get("computed_at", "") for g in gainers), default="")
+    if computed:
+        st.caption(f"As of {computed[:10]}")
+
+    rows = sorted(by_period.get(label, []), key=lambda r: r.get("rank", 0))
+    if not rows:
+        st.info("No gainers for this range.")
+        return
+    for row in rows:
+        cols = st.columns([1, 2, 1], vertical_alignment="center")
+        cols[0].markdown(f"**{row['ticker']}**")
+        cols[1].write(row.get("company", row["ticker"]))
+        pct = row.get("pct_change", 0) or 0
+        cols[2].markdown(f":{'green' if pct >= 0 else 'red'}[{pct:+.1f}%]")
+
+
+def render_latest_news() -> None:
+    """Bottom panel: the news feed from the most recent pipeline run."""
+    articles = fetch_latest_run_articles()
+    if not articles:
+        st.info("No articles from the latest run yet.")
+        return
+    for article in articles:
+        st.markdown(article_tags(article))
+        title = article.get("title") or "Untitled"
+        link = article.get("link")
+        st.markdown(f"**[{title}]({link})**" if link else f"**{title}**")
+        if article.get("summary"):
+            st.write(article["summary"])
+        st.divider()
+
+
 def list_page():
     st.markdown(
         """
@@ -127,70 +218,19 @@ def list_page():
         st.warning("No signals found. Run the pipeline first.")
         return
 
-    # KPI summary row
-    counts = Counter(row["signal"] for row in consolidated)
-    latest = max((row["updated_at"] for row in consolidated), default="")
-    kpis = st.columns(4)
-    kpis[0].metric("Tickers tracked", len(consolidated), border=True)
-    kpis[1].metric("🟢 Bullish", counts.get("bullish", 0), border=True)
-    kpis[2].metric("🔴 Bearish", counts.get("bearish", 0), border=True)
-    kpis[3].metric("⚪ Neutral", counts.get("neutral", 0), border=True)
-    if latest:
-        st.caption(f"Last updated {latest[:19].replace('T', ' ')} UTC")
+    # Top part — split vertically: article tickers (left) | top gainers (right).
+    left, right = st.columns([3, 2], gap="large")
+    with left:
+        st.subheader(f"📊 Article tickers (last {HISTORY_DAYS} days)")
+        render_signals(consolidated)
+    with right:
+        st.subheader("🚀 Top gainers")
+        render_top_gainers()
 
-    st.divider()
-    st.subheader(f"Signals — consolidated mood (last {HISTORY_DAYS} days)")
-
-    total_pages = max(1, (len(consolidated) + SIGNALS_PER_PAGE - 1) // SIGNALS_PER_PAGE)
-    page = max(0, min(st.session_state.get("signals_page", 0), total_pages - 1))
-    start = page * SIGNALS_PER_PAGE
-    page_rows = consolidated[start:start + SIGNALS_PER_PAGE]
-
-    header = st.columns([1, 2, 1, 1, 2], vertical_alignment="center")
-    header[0].markdown("**Ticker**")
-    header[1].markdown("**Company**")
-    header[2].markdown("**Signal**")
-    header[3].markdown("**Confidence**")
-    header[4].markdown("**Updated**")
-
-    with st.container(key="signalrows"):
-        for i, row in enumerate(page_rows):
-            parity = "even" if i % 2 == 0 else "odd"
-            with st.container(border=True, key=f"signalrow_{parity}_{i}"):
-                cols = st.columns([1, 2, 1, 1, 2], vertical_alignment="center")
-                if cols[0].button(row["ticker"], key=row["ticker"]):
-                    st.session_state["selected_ticker"] = row["ticker"]
-                    st.session_state["selected_row"] = row
-                    st.switch_page(detail)
-                cols[1].write(row["entity"])
-                cols[2].markdown(signal_badge(row["signal"]))
-                cols[3].markdown(confidence_text(row["confidence"]))
-                cols[4].write(row["updated_at"][:19].replace("T", " "))
-
-    prev, info, nxt = st.columns([1, 2, 1])
-    if prev.button("← Prev", disabled=page == 0, use_container_width=True):
-        st.session_state["signals_page"] = page - 1
-        st.rerun()
-    info.markdown(f"<div style='text-align:center'>Page {page + 1} of {total_pages}</div>", unsafe_allow_html=True)
-    if nxt.button("Next →", disabled=page >= total_pages - 1, use_container_width=True):
-        st.session_state["signals_page"] = page + 1
-        st.rerun()
-
+    # Bottom part — latest news, full width.
     st.divider()
     st.subheader("📰 Latest news")
-    articles = fetch_latest_run_articles()
-    if not articles:
-        st.info("No articles from the latest run yet.")
-        return
-
-    for article in articles:
-        st.markdown(article_tags(article))
-        title = article.get("title") or "Untitled"
-        link = article.get("link")
-        st.markdown(f"**[{title}]({link})**" if link else f"**{title}**")
-        if article.get("summary"):
-            st.write(article["summary"])
-        st.divider()
+    render_latest_news()
 
 
 # label -> (yfinance period, interval) — interval picked so each range stays readable.
